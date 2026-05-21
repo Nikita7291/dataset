@@ -1,7 +1,18 @@
-site_name: Анализ ошибок дататеста
+site_name: Анализ ошибок датасета
+
 theme:
-  name: material  # Это самая популярная и удобная тема
+  name: material
 
 nav:
   - Главная: index.md
-  - Разбор ошибок: about.md
+  - О проекте: about.md
+  - Ход работы: progress.md
+  - Анализ датасета: analysis.md
+  - Графики: graphs.md
+  - Выводы: results.md
+
+markdown_extensions:
+  - tables
+  - toc
+  - admonition
+  - codehilite

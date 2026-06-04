@@ -380,7 +380,6 @@ for FILE in ALL_FILES:
     Классы: {'Benign': 169334, 'Infiltration': 20832}
     💾 Файл успешно перезаписан: final_clean_Wednesday-28-02-2018_TrafficForML_CICFlowMeter.csv
 
-🎉 ГОТОВО! Все исходные файлы отредактированы и теперь имеют строго одинаковую структуру.
 
 <<<<<<< HEAD
 ```

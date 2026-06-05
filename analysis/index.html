@@ -1,0 +1,1471 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../progress/">
+      
+      
+        <link rel="next" href="../graphs/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Анализ датасета - Анализ ошибок датасета</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8-cse-cic-ids2018" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Анализ ошибок датасета" class="md-header__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Анализ ошибок датасета
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Анализ датасета
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Анализ ошибок датасета" class="md-nav__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Анализ ошибок датасета
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ход работы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-data-leakage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 1. Утечка данных (Data Leakage) и коллинеарные дубликаты столбцов
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 1. Утечка данных (Data Leakage) и коллинеарные дубликаты столбцов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 2. Вшитые строки-заголовки и синтаксический мусор целевой переменной (Label)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 2. Вшитые строки-заголовки и синтаксический мусор целевой переменной (Label)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-infinity-nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 3. Строковый мусор "Infinity" и "NaN" в скоростных характеристиках трафика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 3. Строковый мусор &#34;Infinity&#34; и &#34;NaN&#34; в скоростных характеристиках трафика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fin-fin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 4. Преждевременное закрытие и фрагментация сессий по флагу FIN (Баг FIN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 4. Преждевременное закрытие и фрагментация сессий по флагу FIN (Баг FIN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rst-rst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 5. Зависание сессий в памяти из-за игнорирования жесткого сброса RST (Баг RST) и физические дефекты знаковых полей
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 5. Зависание сессий в памяти из-за игнорирования жесткого сброса RST (Баг RST) и физические дефекты знаковых полей">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-120-600" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 6. Конфликт таймаутов и хардкод лимитов сессий (120с против 600с)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 6. Конфликт таймаутов и хардкод лимитов сессий (120с против 600с)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ethernet-padding-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 7. Ошибочный учет Ethernet Padding (+6 байт из ниоткуда)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 7. Ошибочный учет Ethernet Padding (+6 байт из ниоткуда)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Графики
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Выводы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-data-leakage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 1. Утечка данных (Data Leakage) и коллинеарные дубликаты столбцов
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 1. Утечка данных (Data Leakage) и коллинеарные дубликаты столбцов">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 2. Вшитые строки-заголовки и синтаксический мусор целевой переменной (Label)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 2. Вшитые строки-заголовки и синтаксический мусор целевой переменной (Label)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-infinity-nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 3. Строковый мусор "Infinity" и "NaN" в скоростных характеристиках трафика
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 3. Строковый мусор &#34;Infinity&#34; и &#34;NaN&#34; в скоростных характеристиках трафика">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-fin-fin" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 4. Преждевременное закрытие и фрагментация сессий по флагу FIN (Баг FIN)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 4. Преждевременное закрытие и фрагментация сессий по флагу FIN (Баг FIN)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-rst-rst" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 5. Зависание сессий в памяти из-за игнорирования жесткого сброса RST (Баг RST) и физические дефекты знаковых полей
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 5. Зависание сессий в памяти из-за игнорирования жесткого сброса RST (Баг RST) и физические дефекты знаковых полей">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-120-600" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 6. Конфликт таймаутов и хардкод лимитов сессий (120с против 600с)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 6. Конфликт таймаутов и хардкод лимитов сессий (120с против 600с)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-ethernet-padding-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Модуль 7. Ошибочный учет Ethernet Padding (+6 байт из ниоткуда)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Модуль 7. Ошибочный учет Ethernet Padding (+6 байт из ниоткуда)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Суть и природа проблемы
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Программное решение
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Технический разбор решения
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="8-cse-cic-ids2018">Технический анализ качества данных: Пошаговый разбор 8 критических дефектов датасета CSE-CIC-IDS2018 по методологии ИСП РАН</h1>
+<p>При проектировании систем обнаружения вторжений (IDS) на базе машинного обучения качество входных данных определяет стабильность и обобщающую способность моделей. Набор данных <strong>CSE-CIC-IDS2018</strong>, несмотря на широкое применение, содержит ряд глубоких дефектов и физических аномалий, возникших на этапе перехвата трафика и его агрегации утилитой <code>CICFlowMeter</code>.</p>
+<p>Если передать эти данные в классификатор (например, <code>Random Forest</code>) без специализированной обработки, алгоритм обучится на техническом шуме и артефактах сбора данных, полностью потеряв способность обнаруживать реальные угрозы в производственной сети. Ниже представлен подробный разбор 8 ключевых проблем датасета, устраненных в программном конвейере очистки.</p>
+<hr />
+<h3 id="1-data-leakage">Модуль 1. Утечка данных (Data Leakage) и коллинеарные дубликаты столбцов</h3>
+<h4 id="1">1. Суть и природа проблемы</h4>
+<p>Аномалия заключается в наличии статических инфраструктурных параметров испытательного стенда: фиксированных IP-адресов атакующих и жертв, портов источников, идентификаторов потоков и точного времени проведения тестов (<code>Timestamp</code>, <code>Src IP</code>, <code>Dst IP</code>, <code>Source IP</code>, <code>Destination IP</code>, <code>Flow ID</code>, <code>Src Port</code>). Деревья решений мгновенно привязываются к этим маркерам, выдавая ложную точность 99.9% на тестовой выборке лаборатории, но полностью теряя способность к классификации в реальной сети с другими IP-адресами. Дополнительно из-за аппаратных сбоев парсера возникли скрытые коллинеарные дубликаты признаков с суффиксами <code>.1</code> и <code>.2</code>.</p>
+<h4 id="2">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">input_dir</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\user\CSE-CIC-IDS2018_ML&quot;</span>
+<span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s2">&quot;*.csv&quot;</span><span class="p">))</span>
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s2">&quot;final_cleaned_datasets&quot;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">leakage_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="s1">&#39;Src IP&#39;</span><span class="p">,</span> <span class="s1">&#39;Dst IP&#39;</span><span class="p">,</span> <span class="s1">&#39;Source IP&#39;</span><span class="p">,</span> <span class="s1">&#39;Destination IP&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;final_clean_&quot;</span><span class="p">):</span>
+        <span class="k">continue</span>
+
+    <span class="n">preview</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">cols_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">preview</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.1&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.2&#39;</span><span class="p">)]</span>
+    <span class="n">cols_to_drop</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">leakage_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">preview</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+</code></pre></div>
+
+<h4 id="3">3. Технический разбор решения</h4>
+<p>Предварительное чтение первых 5 строк (<code>nrows=5</code>) позволяет динамически определить и изолировать аппаратные дубликаты столбцов. Накопленный список <code>cols_to_drop</code> отсекает признаки сетевой топологии стенда, предотвращая переобучение модели на конкретных узлах сети.</p>
+<hr />
+<h3 id="2-label">Модуль 2. Вшитые строки-заголовки и синтаксический мусор целевой переменной (<code>Label</code>)</h3>
+<h4 id="1_1">1. Суть и природа проблемы</h4>
+<p>Дефект возник на этапе грубого слияния исходных CSV-файлов в единые массивы. В результате строки с названиями колонок многократно попали внутрь матриц данных, прерывая числовые последовательности. Присутствие текстовых заголовков внутри числовых полей заставляет Pandas приводить весь столбец к типу <code>object</code>, блокируя математические вычисления. Дополнительно целевой признак <code>Label</code> содержит невидимые концевые пробелы (например, <code>"Benign "</code>), а также орфографические ошибки (<code>Infilteration</code>), что искусственно размножает количество классов.</p>
+<h4 id="2_1">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code>    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">300000</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;Label&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;label&#39;</span><span class="p">]</span>
+            <span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Label&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Flow ID&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;Flow ID&#39;</span><span class="p">])</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Flow ID&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="3_1">3. Технический разбор решения</h4>
+<p>Потоковый конвейер (<code>chunksize=300000</code>) отфильтровывает вшитые заголовки с помощью логической маски не-равенства <code>'label'</code>. Метод <code>.str.strip()</code> полностью удаляет концевые пробелы, восстанавливая корректное распределение классов и подготавливая строки к исправлению опечаток на этапе финальной сборки. Валидация <code>Flow ID</code> исключает сессии с разрушенной структурой идентификаторов.</p>
+<hr />
+<h3 id="3-infinity-nan">Модуль 3. Строковый мусор "Infinity" и "NaN" в скоростных характеристиках трафика</h3>
+<h4 id="1_2">1. Суть и природа проблемы</h4>
+<p>В признаках <code>Flow Bytes/s</code> (скорость передачи байт) и <code>Flow Packets/s</code> (скорость передачи пакетов) вместо числовых значений содержатся текстовые строки <code>"Infinity"</code>, <code>"-Infinity"</code> или <code>"NaN"</code>. Это следствие обработки микросессий, у которых длительность <code>Flow Duration = 0</code> (пакеты прилетели в одну миллисекунду). На уровне Java-кода утилита <code>CICFlowMeter</code> вычисляет скорость по формуле:</p>
+<p>$$\text{Speed} = \frac{\text{Volume}}{\text{Duration}}$$</p>
+<p>При делении ненулевого объема на <code>0.0</code> Java возвращает встроенный объект <code>Double.POSITIVE_INFINITY</code>, который при конвертации в CSV записывается в виде текста, искажая тип данных всей колонки.</p>
+<h4 id="2_2">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">chunk</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">available_numeric</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">numeric_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">available_numeric</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="3_2">3. Технический разбор решения</h4>
+<p>Метод <code>pd.to_numeric</code> с параметром <code>errors='coerce'</code> принудительно преобразует типы данных столбцов в числовые, автоматически заменяя строковый мусор <code>"Infinity"</code> на системные пустоты <code>NaN</code>. Последующий вызов <code>replace</code> нейтрализует вещественные бесконечности float, а <code>dropna</code> полностью вырезает дефектные строки из текущего чанка.</p>
+<hr />
+<h3 id="4-fin-fin">Модуль 4. Преждевременное закрытие и фрагментация сессий по флагу FIN (Баг FIN)</h3>
+<h4 id="1_3">1. Суть и природа проблемы</h4>
+<p>Архитектурный дефект логики отслеживания состояний соединений в <code>CICFlowMeter</code>. Как только парсер фиксирует первый пакет с установленным флагом <code>FIN</code> (запрос на закрытие TCP-соединения), он немедленно уничтожает структуру сессии в оперативной памяти и выгружает её характеристики в лог. Однако в реальном сетевом протоколе за флагом <code>FIN</code> всегда следуют пакеты подтверждения закрытия от принимающей стороны (<code>FIN-ACK</code>, <code>ACK</code>). Утилита захвата видит эти пакеты, но, поскольку исходная сессия уже удалена, она ошибочно генерирует под них новые фантомные сессии, которые содержат пакеты, но имеют нулевую длину полезной нагрузки (<code>Payload = 0</code>).</p>
+<h4 id="2_3">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="n">bad_mask</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">chunk</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Tot Fwd Pkts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">&#39;TotLen Fwd Pkts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">((</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Tot Fwd Pkts&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;TotLen Fwd Pkts&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">&#39;Tot Bwd Pkts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">&#39;TotLen Bwd Bwd&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">((</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Tot Bwd Pkts&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;TotLen Bwd Pkts&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+
+<h4 id="3_3">3. Технический разбор решения</h4>
+<p>Булева маска <code>bad_mask</code> выявляет физически невозможные сетевые события: ситуации, когда счетчик пакетов в прямом или обратном направлении зафиксировал активность (<code>&gt; 0</code>), но суммарная длина переданных байт данных при этом равна нулю. Такие искусственные осколки сессий подлежат тотальному удалению.</p>
+<hr />
+<h3 id="5-rst-rst">Модуль 5. Зависание сессий в памяти из-за игнорирования жесткого сброса RST (Баг RST) и физические дефекты знаковых полей</h3>
+<h4 id="1_4">1. Суть и природа проблемы</h4>
+<p>Парсер полностью игнорирует TCP-флаг <code>RST</code> (Reset). При принудительном жестком сбросе соединения сессия не уничтожается, а продолжает находиться в буфере оперативной памяти утилиты до наступления глобального таймаута. За это время сессия ошибочно вбирает в себя пакеты совершенно других сетевых соединений, которые случайно совпали по номерам портов. Это приводит к лавинообразному переполнению знаковых типов переменных в Java (<code>integer overflow</code>), из-за чего параметры портов, длительностей (<code>Flow Duration</code>) и межпакетных интервалов (<code>IAT</code>) уходят в отрицательный диапазон. Также размеры заголовков раздуваются до физически нереальных масштабов (&gt;10 МБ), а обратные пакеты регистрируются без прямой инициализации соединения.</p>
+<h4 id="2_4">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="k">if</span> <span class="s1">&#39;Dst Port&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Dst Port&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;Flow Duration&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Flow Duration&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">iat_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Flow IAT Min&#39;</span><span class="p">,</span> <span class="s1">&#39;Fwd IAT Min&#39;</span><span class="p">,</span> <span class="s1">&#39;Bwd IAT Min&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">iat_cols</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Init Fwd Win Byts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Init Fwd Win Byts&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;Init Bwd Win Byts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Init Bwd Win Byts&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Fwd Header Len&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Fwd Header Len&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Fwd Header Len&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10_000_000</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;Bwd Header Len&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Bwd Header Len&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Bwd Header Len&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10_000_000</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">&#39;Tot Fwd Pkts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">&#39;Tot Bwd Pkts&#39;</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">((</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Tot Fwd Pkts&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">&#39;Tot Bwd Pkts&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">chunk_clean</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="o">~</span><span class="n">bad_mask</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="3_4">3. Технический разбор решения</h4>
+<p>Через побитовое операторное сложение <code>|=</code> конструируется комплексный фильтр физических аномалий. Удаляются все строки со знаковыми переполнениями (значения <code>&lt; 0</code>), аномальные размеры заголовков сетевого и транспортного уровней, превышающие 10 МБ, а также записи, где обратные пакеты летят при нулевом значении прямых пакетов (<code>Tot Fwd Pkts == 0</code>), что указывает на пропуск стартового хэндшейка TCP сессии.</p>
+<hr />
+<h3 id="6-120-600">Модуль 6. Конфликт таймаутов и хардкод лимитов сессий (120с против 600с)</h3>
+<h4 id="1_5">1. Суть и природа проблемы</h4>
+<p>В официальной документации к датасету задекларировано, что лимит длительности сетевой сессии (<code>flowTimeout</code>) равен 600 секундам (10 минут). По факту при анализе исходного кода <code>CICFlowMeter</code> на GitHub была обнаружена жестко захардкоженная константа в 120 секунд. Из-за этого расхождения длинные стандартные легигенные сессии (скачивание файлов, удержание соединений СУБД) принудительно кромсались парсером каждые 2 минуты. Это породило генерацию огромного количества строк-дубликатов с абсолютно идентичными статистическими признаками, искусственно смещающих веса модели машинного обучения.</p>
+<h4 id="2_5">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="k">if</span> <span class="n">is_first_chunk</span><span class="p">:</span>
+            <span class="n">chunk_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+            <span class="n">is_first_chunk</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">chunk_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="3_5">3. Технический разбор решения</h4>
+<p>Потоковая запись кусков данных через <code>mode='a'</code> подготавливает очищенные таблицы к финальной дедупликации. На этапе пост-обработки вызов метода <code>drop_duplicates()</code> полностью выжигает избыточные дубликаты сетевых сессий, ликвидируя искусственное раздувание объема данных и восстанавливая естественный баланс распределения признаков.</p>
+<hr />
+<h3 id="7-ethernet-padding-6">Модуль 7. Ошибочный учет Ethernet Padding (+6 байт из ниоткуда)</h3>
+<h4 id="1_6">1. Суть и природа проблемы</h4>
+<p>Искажение вызвано некорректным сбором метрик объема трафика на канальном уровне (L2) вместо транспортного (L4). По стандарту Ethernet минимальный размер кадра должен составлять не менее 64 байт. Если пакет слишком маленький (например, пустой TCP ACK с длиной полезной нагрузки Payload = 0), сетевой интерфейс автоматически дополняет его нулями до минимума — этот процесс называется Ethernet Padding (дополнение фрейма, обычно составляет 6 байт). <code>CICFlowMeter</code> ошибочно считывал полную длину кадра целиком с сетевого адаптера, прибавляя аппаратный мусор к длине пакетов. Это превратило минимальные длины пакетов (<code>Fwd Pkt Len Min</code>, <code>Bwd Pkt Len Min</code>) в константные величины (равные 6), отражающие специфику сетевых карт стенда, а не сетевой трафик.</p>
+<h4 id="2_6">2. Программное решение</h4>
+<div class="codehilite"><pre><span></span><code><span class="n">ALWAYS_REMOVE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;Flow ID&#39;</span><span class="p">,</span> <span class="s1">&#39;Src IP&#39;</span><span class="p">,</span> <span class="s1">&#39;Src Port&#39;</span><span class="p">,</span> <span class="s1">&#39;Dst IP&#39;</span><span class="p">,</span> <span class="s1">&#39;Dst Port&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Protocol&#39;</span><span class="p">,</span> <span class="s1">&#39;CWE Flag Count&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Fwd Pkt Len Min&#39;</span><span class="p">,</span> <span class="s1">&#39;Bwd Pkt Len Min&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Pkt Size Avg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Fwd Byts/b Avg&#39;</span><span class="p">,</span> <span class="s1">&#39;Fwd Pkts/b Avg&#39;</span><span class="p">,</span> <span class="s1">&#39;Fwd Blk Rate Avg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Bwd Byts/b Avg&#39;</span><span class="p">,</span> <span class="s1">&#39;Bwd Pkts/b Avg&#39;</span><span class="p">,</span> <span class="s1">&#39;Bwd Blk Rate Avg&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subflow Fwd Pkts&#39;</span><span class="p">,</span> <span class="s1">&#39;Subflow Fwd Byts&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;Subflow Bwd Pkts&#39;</span><span class="p">,</span> <span class="s1">&#39;Subflow Bwd Byts&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h4 id="3_6">3. Технический разбор решения</h4>
+<p>Признаки минимальных длин пакетов прямых и обратных направлений вносятся в список <code>ALWAYS_REMOVE</code> на принудительное исключение из матриц. Модель полностью избавляется от ложной чувствительности к аппаратному шуму сетевого оборудования.</p>
+<hr />
+<p>Модуль 8. Двойной учет первого пакета (баг Average Packet Size = 9) и общие константные признаки1. Суть и природа проблемыВ Java-коде логики инициализации сетевой сессии CICFlowMeter допущена техническая ошибка: самый первый захваченный пакет добавляется в накопительный объект статистики дважды.Пример математического сбоя метрики Pkt Size Avg при передаче 2 пакетов по 6 байт:Прилетает 1-й пакет (6 байт): из-за бага софт добавляет его два раза. Накопленная сумма длин = $6 + 6 = 12$. Счетчик пакетов в объекте статистики = 2.Прилетает 2-й пакет (6 байт): софт обрабатывает его корректно. Накопленная сумма длин = $12 + 6 = 18$. Количество пакетов для расчета среднего размера берется как фактическое количество пакетов в сессии (то есть 2).Итог расчета метрики Pkt Size Avg = $\frac{18}{2} = 9$. При этом соседний признак среднего значения длины пакета (Pkt Len Mean) рассчитывается через другую переменную, где данный баг отсутствует, и возвращает верное значение 6.Взаимоисключающие математические признаки ломают логику построения ветвлений в древовидных моделях классификации (например, Random Forest и Gradient Boosting), так как создают ложные линейные зависимости. Дополнительно в файлах датасета присутствуют скрытые константные признаки (количество уникальных значений nunique &lt;= 1), которые не имеют дисперсии, не несут полезной информации для разделения классов и замедляют сходимость алгоритмов.2. Программное решениеPython# На этапе пост-обработки всех 10 файлов датасета:
+constant_per_file = {}</p>
+<p>for FILE in ALL_FILES:
+    filepath = os.path.join(FOLDER, FILE)
+    df = pd.read_csv(filepath)</p>
+<div class="codehilite"><pre><span></span><code><span class="n">num_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="k">include</span><span class="o">=</span><span class="n">np</span><span class="p">.</span><span class="n">number</span><span class="p">).</span><span class="n">columns</span>
+<span class="n">num_constant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">set</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">num_cols</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">df</span><span class="o">[</span><span class="n">c</span><span class="o">]</span><span class="p">.</span><span class="n">nunique</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">try</span><span class="err">:</span>
+<span class="w">    </span><span class="n">txt_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="k">include</span><span class="o">=</span><span class="s1">&#39;string&#39;</span><span class="p">).</span><span class="n">columns</span>
+<span class="ow">except</span><span class="err">:</span>
+<span class="w">    </span><span class="n">txt_cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">df</span><span class="p">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="k">include</span><span class="o">=</span><span class="s1">&#39;object&#39;</span><span class="p">).</span><span class="n">columns</span>
+<span class="n">txt_constant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">set</span><span class="p">(</span><span class="n">c</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">txt_cols</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">df</span><span class="o">[</span><span class="n">c</span><span class="o">]</span><span class="p">.</span><span class="n">nunique</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="s1">&#39;Label&#39;</span><span class="p">)</span>
+
+<span class="n">all_constant</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">num_constant</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">txt_constant</span>
+<span class="n">constant_per_file</span><span class="o">[</span><span class="n">FILE</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">all_constant</span>
+</code></pre></div>
+
+<p>all_constant_sets = list(constant_per_file.values())
+common_constant = all_constant_sets[0]
+for s in all_constant_sets[1:]:
+    common_constant = common_constant &amp; s</p>
+<h1 id="_1">Формирование единого списка исключения</h1>
+<p>ALL_TO_REMOVE = set(ALWAYS_REMOVE) | common_constant</p>
+<p>for FILE in ALL_FILES:
+    filepath = os.path.join(FOLDER, FILE)
+    df = pd.read_csv(filepath)</p>
+<div class="codehilite"><pre><span></span><code>if &#39;Label&#39; in df.columns:
+    df[&#39;Label&#39;] = df[&#39;Label&#39;].str.strip()
+    df[&#39;Label&#39;] = df[&#39;Label&#39;].replace(&#39;Infilteration&#39;, &#39;Infiltration&#39;)
+
+df.drop(columns=ALL_TO_REMOVE, inplace=True, errors=&#39;ignore&#39;)
+df.replace([np.inf, -np.inf], np.nan, inplace=True)
+df.dropna(inplace=True)
+df.drop_duplicates(inplace=True)
+df.to_csv(filepath, index=False)
+</code></pre></div>
+
+<ol>
+<li>Технический разбор и спецификация удаляемых признаковВ процессе выполнения алгоритма фильтрации из структуры данных исключаются 23 столбца. Ниже представлен подробный разбор каждой удаляемой колонки сгруппированный по характеру дефекта.3.1. Признак с программным дефектом вычисленияPkt Size Avg (или Packet Size Avg): Средний размер пакета. Исключается из-за критического бага двойного учета первого пакета в сессии. Его сохранение приводит к дублированию информации признака Pkt Len Mean, но со смещением математического ожидания, что искажает оценку весов признаков.3.2. Общие константные признаки (инварианты со значением 0 во всех подвыборках)Группа признаков, связанных со статистикой блочных передач (Bulk) и специфических флагов, которые в рамках топологии генерации трафика CSE-CIC-IDS2018 принимают строго константное значение $0$:Fwd Byts/b Avg (Forward Bytes/Bulk Avg): Среднее количество байт в блоке передачи в прямом направлении. Равно $0$ для всего датасета из-за отсутствия агрегации блоковых данных парсером.Fwd Pkts/b Avg (Forward Packets/Bulk Avg): Среднее количество пакетов в блоке передачи в прямом направлении. Постоянное нулевое значение.Fwd Blk Rate Avg (Forward Bulk Rate Avg): Средняя скорость передачи блоков в прямом направлении. Не имеет дисперсии.Bwd Byts/b Avg (Backward Bytes/Bulk Avg): Среднее количество байт в блоке передачи в обратном направлении. Константа $0$.Bwd Pkts/b Avg (Backward Packets/Bulk Avg): Среднее количество пакетов в блоке передачи в обратном направлении. Константа $0$.Bwd Blk Rate Avg (Backward Bulk Rate Avg): Средняя скорость передачи блоков в обратном направлении. Константа $0$.Bwd PSH Flags: Количество пакетов с установленным флагом PUSH в обратном направлении. Из-за специфики съема трафика утилитой во всех сессиях принимает значение $0$.Fwd URG Flags: Количество пакетов с установленным флагом URGENT в прямом направлении. Не содержит информативного распределения (строгая константа $0$).Bwd URG Flags: Количество пакетов с установленным флагом URGENT в обратном направлении. Равно $0$ во всех записях.CWE Flag Count: Количество пакетов с флагом Congestion Window Reduced. Принимает нулевое значение во всей генеральной совокупности.3.3. Служебные метаданные и сетевые идентификаторы (Список ALWAYS_REMOVE)Данные признаки удаляются во избежание ложного обучения (overfitting) моделей на конкретную архитектуру тестового стенда и временные промежутки проведения эксперимента:Flow ID: Уникальный текстовый идентификатор сетевого потока. Содержит уникальные строковые значения для каждой сессии, не подлежит математическому обобщению.Src IP (Source IP): IP-адрес отправителя пакета. Исключается, чтобы модель не запоминала конкретные IP-адреса атакующих машин, зафиксированных на стенде, а обучалась на поведенческих характеристиках трафика.Dst IP (Destination IP): IP-адрес получателя пакета. Удаляется для предотвращения жесткой привязки классификатора к адресам серверов-жертв внутри инфраструктуры AWS.Src Port (Source Port): Исходный порт соединения. Чаще всего генерируется операционной системой динамически (динамические порты из диапазона 49152–65535), поэтому является случайным шумом для модели.Timestamp: Временная метка фиксации потока. Приводит к дрейфу данных (data drift) и ложной привязке сетевых атак к конкретному времени суток или дате проведения эксперимента.Удаление указанных 23 колонок обеспечивает сокращение признакового пространства до 60 семантически независимых информативных переменных, гарантируя идентичность структуры данных во всех десяти обрабатываемых файлах.</li>
+</ol>
+<h3 id="_2">Результаты работы конвейера очистки</h3>
+<p>Лог успешного выполнения сквозного редактирования файлов на жестком диске:</p>
+<p>```text
+ШАГ 1: Поиск константных столбцов во всех файлах
+  [final_clean_Friday-02-03-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Friday-16-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Friday-23-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Thuesday-20-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Thursday-01-03-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Thursday-15-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Thursday-22-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Wednesday-14-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12
+  [final_clean_Wednesday-21-02-2018_TrafficForML_CICFlowMeter.csv] константных: 13
+  [final_clean_Wednesday-28-02-2018_TrafficForML_CICFlowMeter.csv] константных: 12</p>
+<p>============================================================
+ШАГ 2: Поиск общих константных столбцов (пересечение)
+============================================================
+  Константны во всех файлах (11):
+    - Bwd Blk Rate Avg
+    - Bwd Byts/b Avg
+    - Bwd PSH Flags
+    - Bwd Pkts/b Avg
+    - Bwd URG Flags
+    - CWE Flag Count
+    - Fwd Blk Rate Avg
+    - Fwd Byts/b Avg
+    - Fwd Pkts/b Avg
+    - Fwd URG Flags
+    - Protocol</p>
+<p>ВСЕГО будет удалено столбцов: 23</p>
+<p>ШАГ 4: Очистка всех файлов (модификация исходных файлов)</p>
+<p>Редактирование файла: final_clean_Friday-02-03-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (483066, 79) → (482068, 60)
+    Удалено дубликатов: 998
+    Классы: {'Benign': 339885, 'Bot': 142183}
+    💾 Файл успешно перезаписан: final_clean_Friday-02-03-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Friday-16-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (467891, 79) → (467847, 60)
+    Удалено дубликатов: 44
+    Классы: {'Benign': 442299, 'DoS attacks-Hulk': 25548}
+    💾 Файл успешно перезаписан: final_clean_Friday-16-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Friday-23-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (402367, 79) → (400943, 60)
+    Удалено дубликатов: 1424
+    Классы: {'Benign': 400719, 'Brute Force -Web': 124, 'Brute Force -XSS': 73, 'SQL Injection': 27}
+    💾 Файл успешно перезаписан: final_clean_Friday-23-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Thuesday-20-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (3169271, 81) → (3135576, 60)
+    Удалено дубликатов: 33695
+    Классы: {'Benign': 2846287, 'DDoS attacks-LOIC-HTTP': 289289}
+    💾 Файл успешно перезаписан: final_clean_Thuesday-20-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Thursday-01-03-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (104533, 79) → (104188, 60)
+    Удалено дубликатов: 345
+    Классы: {'Benign': 80218, 'Infiltration': 23970}
+    💾 Файл успешно перезаписан: final_clean_Thursday-01-03-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Thursday-15-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (379583, 79) → (377087, 60)
+    Удалено дубликатов: 2496
+    Классы: {'Benign': 341739, 'DoS attacks-GoldenEye': 27772, 'DoS attacks-Slowloris': 7576}
+    💾 Файл успешно перезаписан: final_clean_Thursday-15-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Thursday-22-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (400831, 79) → (399402, 60)
+    Удалено дубликатов: 1429
+    Классы: {'Benign': 399200, 'Brute Force -Web': 142, 'Brute Force -XSS': 39, 'SQL Injection': 21}
+    💾 Файл успешно перезаписан: final_clean_Thursday-22-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Wednesday-14-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (359797, 79) → (358985, 60)
+    Удалено дубликатов: 812
+    Классы: {'Benign': 265167, 'SSH-Bruteforce': 93818}
+    💾 Файл успешно перезаписан: final_clean_Wednesday-14-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Wednesday-21-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (522380, 79) → (522379, 60)
+    Удалено дубликатов: 1
+    Классы: {'Benign': 358629, 'DDOS attack-HOIC': 163750}
+    💾 Файл успешно перезаписан: final_clean_Wednesday-21-02-2018_TrafficForML_CICFlowMeter.csv</p>
+<p>Редактирование файла: final_clean_Wednesday-28-02-2018_TrafficForML_CICFlowMeter.csv
+    Размер: (190881, 79) → (190166, 60)
+    Удалено дубликатов: 715  <br />
+    Классы: {'Benign': 169334, 'Infiltration': 20832}
+    💾 Файл успешно перезаписан: final_clean_Wednesday-28-02-2018_TrafficForML_CICFlowMeter.csv</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,903 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../progress/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>О проекте - Анализ ошибок датасета</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cse-cic-ids2018" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Анализ ошибок датасета" class="md-header__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Анализ ошибок датасета
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              О проекте
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Анализ ошибок датасета" class="md-nav__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Анализ ошибок датасета
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Общая информация
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Актуальность темы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Цель и задачи проекта
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. описание датасета
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. описание датасета">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Происхождение данных и инфраструктура генерации
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Таксономия представленных категорий трафика
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Структура признакового пространства
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Используемые технологии
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Исходные проблемы и дефекты в данных
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Исходные проблемы и дефекты в данных">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Пропущенные значения (NaN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-inf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Бесконечные значения (inf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Некорректные типы данных
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Экстремальный дисбаланс классов
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ход работы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Графики
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Выводы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Общая информация
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Актуальность темы
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Цель и задачи проекта
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. описание датасета
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. описание датасета">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Происхождение данных и инфраструктура генерации
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Таксономия представленных категорий трафика
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. Структура признакового пространства
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Используемые технологии
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Исходные проблемы и дефекты в данных
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Исходные проблемы и дефекты в данных">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Пропущенные значения (NaN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-inf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Бесконечные значения (inf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Некорректные типы данных
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Экстремальный дисбаланс классов
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="cse-cic-ids2018">О проекте: Исследование и подготовка набора данных сетевого трафика CSE-CIC-IDS2018</h1>
+<hr />
+<h2 id="1">1. Общая информация</h2>
+<p>Проект посвящен исследованию, профилированию и подготовке эталонного набора данных сетевого трафика <strong>CSE-CIC-IDS2018</strong> (Collaborative Project of the Communications Security Establishment &amp; Canadian Institute for Cybersecurity). Данный датасет является индустриальным стандартом для проектирования, тестирования и валидации современных систем обнаружения вторжений (IDS) и применения алгоритмов классификации методами машинного обучения.</p>
+<p>В рамках проекта рассматриваются структурированные сетевые потоки (flows), содержащие как профили штатной сетевой активности (легитимный трафик), так и векторизованные следы целевых кибератак различных типов. Каждая запись в наборе данных представляет собой вектор статистических признаков, извлеченных из сетевых пакетов на транспортном и сетевом уровнях модели OSI.</p>
+<hr />
+<h2 id="2">2. Актуальность темы</h2>
+<p>Динамическое масштабирование корпоративных сетей и усложнение ландшафта киберугроз детерминируют жесткие требования к автоматизированным средствам сетевой безопасности. Традиционные сигнатурные методы обнаружения вторжений неэффективны против уязвимостей нулевого дня (Zero-Day) и комбинированных распределенных атак.</p>
+<p>Применение математического аппарата машинного обучения позволяет выявлять скрытые паттерны и аномалии в сетевом поведении. Однако качество и обобщающая способность предимпликативных моделей напрямую зависят от чистоты исходной выборки. Сетевой трафик, собираемый в реальном времени, характеризуется высокой зашумленностью, наличием технических дефектов и экстремальным дисбалансом классов. Изучение структуры и корректная подготовка таких данных являются обязательным фундаментом для построения надежных систем информационной безопасности.</p>
+<hr />
+<h2 id="3">3. Цель и задачи проекта</h2>
+<p><strong>Цель проекта:</strong> Исследование внутренней структуры датасета сетевого трафика, выявление системных аномалий, дефектов записи и комплексная подготовка признакового пространства для последующего применения в моделях классификации машинного обучения.</p>
+<p><strong>Задачи проекта:</strong></p>
+<ul>
+<li>Изучить архитектуру признаков и метрик сетевого трафика в датасете CSE-CIC-IDS2018.</li>
+<li>Проанализировать структуру распределения целевой переменной и оценить степень дисбаланса классов.</li>
+<li>Провести аудит данных на предмет пропусков, бесконечных значений и несоответствия типов данных.</li>
+<li>Сформировать требования к очистке и трансформации исходных признаков.</li>
+<li>Разработать аналитические визуализации для интерпретации взаимосвязей между признаками.</li>
+<li>Подготовить валидный массив данных для последующего этапа математического моделирования.</li>
+</ul>
+<hr />
+<h2 id="4">4. описание датасета</h2>
+<h3 id="41">4.1. Происхождение данных и инфраструктура генерации</h3>
+<p>Набор данных разработан на базе инфраструктуры облака Amazon Web Services (AWS) специалистами Канадского института кибербезопасности. Симуляция сетевой активности включала в себя:</p>
+<ul>
+<li>Изолированную топологию сети, состоящую из 50 целевых рабочих станций (сегмент жертв);</li>
+<li>Выделенную инфраструктуру из 30 атакующих хостов;</li>
+<li>Сбор сырого сетевого трафика в формате <code>PCAP</code> в течение 10 систематических сессий (дней).</li>
+</ul>
+<p>Для извлечения числовых признаков из дампов <code>PCAP</code> использовалась специализированная утилита <strong>CICFlowMeter V3</strong>. Она группирует пакеты в двунаправленные сетевые потоки (Flows), определяемые по 5-сигнатурному ключу (IP-адрес источника/приемника, порт источника/приемника, тип протокола), и вычисляет более 80 математических и временных метрик для каждого потока.</p>
+<h3 id="42">4.2. Таксономия представленных категорий трафика</h3>
+<p>Датасет содержит дифференцированные записи, разбитые на укрупненные классы, отражающие профили реальных угроз:</p>
+<ol>
+<li><strong>Benign:</strong> Эталонный легитимный трафик, сгенерированный в ходе выполнения стандартных пользовательских протоколов (HTTP, HTTPS, SSH, FTP, DNS).</li>
+<li><strong>Brute Force (Грубый обход):</strong> Попытки несанкционированного доступа к сетевым службам посредством перебора учетных данных (<code>FTP-BruteForce</code>, <code>SSH-BruteForce</code>).</li>
+<li><strong>DoS (Denial of Service):</strong> Атаки, направленные на исчерпание ресурсов сервера (памяти, процессора, пула соединений). Включают модификации: <code>DoS-GoldenEye</code>, <code>DoS-Slowloris</code>, <code>DoS-SlowHTTPTest</code>, <code>DoS-Hulk</code>.</li>
+<li><strong>DDoS (Distributed Denial of Service):</strong> Распределенные атаки на отказ в обслуживании, реализованные на сетевом и прикладном уровнях: <code>DDoS-LOIC-HTTP</code>, <code>DDoS-LOIC-UDP</code>, <code>DDoS-HOIC</code>.</li>
+<li><strong>Web Attacks:</strong> Уязвимости веб-приложений, инъецированные в HTTP-сессии: <code>SQL Injection</code>, <code>Command Injection</code>, <code>Cross-Site Scripting (XSS)</code>.</li>
+<li><strong>Infiltration:</strong> Проникновение внутрь защищенного периметра сети путем эксплуатации уязвимостей клиентского ПО с последующим сканированием локальной сети и развертыванием бэкдоров.</li>
+<li><strong>Botnet:</strong> Трафик, генерируемый зараженными рабочими станциями при взаимодействии с командными серверами (C&amp;C-серверы), смоделированный на базе малвари <code>Ares</code>.</li>
+</ol>
+<h3 id="43">4.3. Структура признакового пространства</h3>
+<p>80 признаков датасета разделяются на следующие ключевые категории:</p>
+<ul>
+<li><strong>Идентификаторы потока:</strong> <code>Dst Port</code> (Порт назначения), <code>Protocol</code> (Идентификатор транспортного протокола: TCP/UDP/ICMP).</li>
+<li><strong>Временные характеристики (Метрики длительности):</strong></li>
+<li><code>Flow Duration</code> — общая длительность сетевого потока (в микросекундах).</li>
+<li>
+<p><code>Flow IAT</code> (Inter-Arrival Time) — статистические показатели интервалов времени между пакетами (Mean, Std, Max, Min) раздельно для прямого (Fwd) и обратного (Bwd) направлений.</p>
+</li>
+<li>
+<p><strong>Объемные параметры трафика:</strong> <code>Total Fwd Packets</code>, <code>Total Backward Packets</code> — суммарное количество переданных и полученных пакетов в рамках сессии.</p>
+</li>
+<li><strong>Скоростные характеристики:</strong></li>
+<li><code>Flow Bytes/s</code> — скорость передачи данных (байт в секунду).</li>
+<li>
+<p><code>Flow Packets/s</code> — интенсивность потока пакетов (пакетов в секунду).</p>
+</li>
+<li>
+<p><strong>Статистика длин пакетов:</strong> <code>Fwd Packet Length Max/Min/Mean/Std</code>, <code>Bwd Packet Length Max/Min/Mean/Std</code> — описывают геометрический профиль трафика.</p>
+</li>
+<li><strong>Флаги заголовков TCP:</strong> <code>Fwd PSH Flags</code>, <code>Bwd URG Flags</code>, <code>FIN Flag Count</code>, <code>SYN Flag Count</code>, <code>RST Flag Count</code>, <code>PSH Flag Count</code>, <code>ACK Flag Count</code> — фиксируют наличие специфических управляющих бит, характерных для сканирования портов или атак типа SYN-Flood.</li>
+<li><strong>Параметры буферизации и окон:</strong> <code>Init_Win_bytes_forward</code>, <code>Init_Win_bytes_backward</code> — размер начального окна TCP, являющийся сильным дискриминативным признаком при идентификации операционной системы хоста.</li>
+<li><strong>Метрики активности состояний:</strong> <code>Active Mean/Std/Max/Min</code> (время активности потока перед переходом в режим ожидания), <code>Idle Mean/Std/Max/Min</code> (время нахождения потока в пассивном состоянии).</li>
+<li><strong>Целевой признак:</strong> <code>Label</code> — строковая метка, определяющая принадлежность потока к легитимному классу (<code>Benign</code>) или конкретному типу атаки.</li>
+</ul>
+<hr />
+<h2 id="5">5. Используемые технологии</h2>
+<p>Для реализации исследовательских задач развернут программный стек на базе языка <strong>Python 3</strong>:</p>
+<ul>
+<li><strong>Pandas:</strong> Основной инструмент для манипулирования табличными структурами данных, агрегации и векторизованной обработки столбцов.</li>
+<li><strong>NumPy:</strong> Проведение математических вычислений и оперирование системными константами числовых типов.</li>
+<li><strong>Matplotlib / Seaborn:</strong> Построение пакета статистических графиков, гистограмм плотности распределения и термальных карт корреляционных матриц.</li>
+<li><strong>Git / GitHub:</strong> Обеспечение контроля версий исходного кода и совместного доступа к материалам.</li>
+<li><strong>MkDocs:</strong> Генерация статического веб-сайта проекта для ведения проектной документации.</li>
+</ul>
+<hr />
+<h2 id="6">6. Исходные проблемы и дефекты в данных</h2>
+<p>Исходный массив данных CSE-CIC-IDS2018 содержит ряд критических дефектов, накладывающих ограничения на непосредственное применение математического аппарата моделей машинного обучения:</p>
+<h3 id="61-nan">6.1. Пропущенные значения (NaN)</h3>
+<p>Локализованы нечисловые пустоты в столбцах скоростных характеристик. Возникают вследствие сбоев парсера утилиты CICFlowMeter при обработке незавершенных или поврежденных TCP-сессий, где невозможно корректно вычислить итоговые метрики.</p>
+<h3 id="62-inf">6.2. Бесконечные значения (inf)</h3>
+<p>Выявлено присутствие значений положительной и отрицательной бесконечности в признаках <code>Flow Bytes/s</code> и <code>Flow Packets/s</code>. Данная аномалия возникает при нулевой длительности сетевого потока (<code>Flow Duration = 0</code> микросекунд), что приводит к математической неопределенности деления на ноль при расчете удельной интенсивности.</p>
+<h3 id="63">6.3. Некорректные типы данных</h3>
+<p>Ряд числовых признаков изначально интерпретируется как текстовый тип (<code>object</code>). Причиной является замусоривание выборки дубликатами строк-заголовков с названиями колонок, возникшими на этапе конкатенации исходных CSV-файлов.</p>
+<h3 id="64">6.4. Экстремальный дисбаланс классов</h3>
+<p>Статистическое распределение целевой переменной <code>Label</code> смещено:</p>
+<ul>
+<li>Легитимный трафик (<code>Benign</code>): <strong>~87%</strong></li>
+<li>Суммарная доля сетевых атак: <strong>~13%</strong></li>
+</ul>
+<p>Данный фактор требует предварительного учета при выборе метрик эффективности будущих моделей, исключая использование стандартной метрики <code>Accuracy</code>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

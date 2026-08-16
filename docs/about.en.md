@@ -8,6 +8,14 @@ The project is dedicated to the research, profiling and preparation of a referen
 
 The project examines structured network flows containing both profiles of regular network activity (legitimate traffic) and vectorized traces of targeted cyber attacks of various types. Each record in the dataset is a vector of statistical features extracted from network packets at the transport and network layers of the OSI model.
 
+## Data sources and origin of CSE-CIC-IDS2018
+
+The original dataset **CSE-CIC-IDS2018** was developed jointly by the Canadian Cybersecurity Institute (CIC) and the Canadian Communications Security Center (CSE). The traffic was generated in a large-scale Amazon AWS cloud environment and includes network flow logs extracted using the CICFlowMeter-V3 utility.
+
+**Official resources:**
+
+* **Website of the authors (CIC):** [CSE-CIC-IDS2018 Dataset](http://www.unb.ca/cic/datasets/ids-2018.html )
+* **AWS Open Data Registry:** [A Realistic Cyber Defense Dataset](https://registry.opendata.aws/cse-cic-ids2018/)
 ---
 
 ## 2. Relevance of the topic
@@ -51,7 +59,7 @@ The dataset contains differentiated records, divided into enlarged classes, refl
 
 1. **Benign:** Reference legitimate traffic generated during the execution of standard user protocols (HTTP, HTTPS, SSH, FTP, DNS).
 2. **Brute Force (Brute Force):** Attempts to gain unauthorized access to network services by going through credentials (`FTP-BruteForce`, `SSH-BruteForce').
-3. **DOS (Denial of Service):** Attacks aimed at exhausting server resources (memory, processor, connection pool). Include modifications: `DoS-GoldenEye', `DoS-Slowloris', `DoS-SlowHTTPTest', `DoS-Hulk'.
+3. **DoS (Denial of Service):** Attacks aimed at exhausting server resources (memory, processor, connection pool). Include modifications: `DoS-GoldenEye', `DoS-Slowloris', `DoS-SlowHTTPTest', `DoS-Hulk'.
 4. **DDoS (Distributed Denial of Service):** Distributed denial of service attacks implemented at the network and application layers: `DDoS-LOIC-HTTP', `DDoS-LOIC-UDP`, `DDoS-HOIC'.
 5. **Web Attacks:** Web application vulnerabilities injected into HTTP sessions: `SQL Injection`, `Command Injection`, `Cross-Site Scripting (XSS)'.
 6. **Infiltration:** Penetration into the protected perimeter of the network by exploiting client software vulnerabilities, followed by scanning the local network and deploying backdoors.

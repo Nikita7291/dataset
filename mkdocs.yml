@@ -17,12 +17,11 @@ plugins:
   - i18n:
       default_language: ru
       languages:
-        ru:
+        - locale: ru
           name: Русский
-          build: true
-        en:
+          default: true
+        - locale: en
           name: English
-          build: true
 
 nav:
   - Главная: index.md

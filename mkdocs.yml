@@ -24,13 +24,6 @@ plugins:
           default: true
         - locale: en
           name: English
-          nav:
-            - "Главная": "Home"
-            - "О проекте": "About"
-            - "Ход работы": "Progress"
-            - "Анализ датасета": "Dataset Analysis"
-            - "Графики": "Graphs"
-            - "Выводы": "Conclusions"
 
 nav:
   - Главная: index.md

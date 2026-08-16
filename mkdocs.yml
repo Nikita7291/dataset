@@ -2,6 +2,8 @@ site_name: Анализ ошибок датасета
 
 theme:
   name: material
+  features:
+    - navigation.footer
 
 extra:
   alternate:

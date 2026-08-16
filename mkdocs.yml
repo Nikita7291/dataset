@@ -8,10 +8,10 @@ theme:
 extra:
   alternate:
     - name: Русский
-      link: /dataset/
+      link: ""
       lang: ru
     - name: English
-      link: /dataset/en/
+      link: "en/"
       lang: en
 
 plugins:
@@ -31,7 +31,7 @@ plugins:
             - "Анализ датасета": "Dataset Analysis"
             - "Графики": "Graphs"
             - "Выводы": "Conclusions"
-            
+
 nav:
   - Главная: index.md
   - О проекте: about.md

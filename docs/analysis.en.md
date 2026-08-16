@@ -4,8 +4,22 @@ When designing intrusion detection systems (IDS) based on machine learning, the 
 
 If you transfer this data to a classifier (for example, Random Forest) without specialized processing, the algorithm will learn from technical noise and data collection artifacts, completely losing the ability to detect real threats in the production network. Below is a detailed analysis of 8 key dataset issues fixed in the cleaning software pipeline.
 
----
+## Raw dataset problems and prerequisites for cleaning
 
+Despite its de facto standard status, the raw dataset **CSE-CIC-IDS2018** contains a number of critical technical issues. Our project implements a strict pre-cleaning pipeline (processing NaNs, infinities and removing duplicates). The need for such steps is confirmed by the research of other authors:
+
+1. **Critical imbalance and lack of cleaning standards:**
+In the scientific paper *"A survey and analysis of intrusion detection models based on CSE-CIC-IDS2018 Big Data" (Leevy et al.)* The authors analyzed the existing models and came to the conclusion that most researchers ignore the problem of class imbalance, and there is practically no information about dataset cleaning methods, which ruins the reproducibility of experiments. 
+**Research:** [ResearchGate / Springer](https://www.researchgate.net/publication/346536711_A_survey_and_analysis_of_intrusion_detection_models_based_on_CSE-CIC-IDS2018_Big_Data)
+
+2. **Labeling Errors:**
+Other researchers who analyzed the structure of the logs in detail revealed that in CSE-CIC-IDS2018 there is a significant proportion of errors in the labeling errors itself, which is estimated at about 6.67%. This directly affects the quality of classifiers' training on raw data.
+**Mention of the problem in reviews (Liu et al.):** [arXiv:2402.10974](https://arxiv.org/html/2402.10974v1)
+
+3. **Multicollinearity and redundancy of features (Feature Redundancy):**
+An analysis of the extracted CSE-CIC-IDS2018 network streams shows the presence of huge clusters of dependent variables. Many metrics (for example, packet counters and total byte volumes) have a correlation coefficient >0.9. As noted in the fundamental reviews of the dataset, the direct use of all the initial features without correlation analysis (Feature Selection) leads to overfitting algorithms and critical overspending of RAM.
+**Investigation of the problem of feature selection (Leevy et al., 2020):** [Journal of Big Data: Analysis of models based on CSE-CIC-IDS2018](https://journalofbigdata.springeropen.com/articles/10.1186/s40537-020-00382-x )
+---
 ### Problem 1. Data Leakage and collinear duplicate columns
 
 ####1. The essence and nature of the problem
@@ -78,8 +92,7 @@ The streaming pipeline (`chunksize=300000`) filters out embedded headers using a
 The `Flow Bytes/s` and `Flow Packets/s` attributes contain the text strings `"Infinity"`, `"-Infinity"` or `"NaN"` instead of numeric values. This is a consequence of processing microsessions with a duration of `Flow Duration = 0` (packets arrived in one millisecond). At the Java code level, the `CICFlowMeter` utility calculates the speed using the formula:
 
 
-$$\text{Speed} = \frac{\text{Volume}}{\text{Duration}}$$
-
+![Speed = Volume / Duration](https://latex.codecogs.com/svg.latex?\mathrm{Speed}=\frac{\mathrm{Volume}}{\mathrm{Duration}})
 
 When dividing a non-zero volume by `0.0`, Java returns the built-in object `Double.POSITIVE_INFINITY`, which is written as text when converted to CSV, distorting the data type of the entire column.
 
@@ -220,7 +233,22 @@ Signs of the minimum packet lengths of forward and reverse directions are added 
 ### Problem 8. Double counting of the first packet (bug Average Packet Size = 9) and common constant signs
 
 ####1. The essence and nature of the problem
-A technical error has been made in the Java code of the CICFlowMeter network session initialization logic: the very first captured packet is added to the cumulative statistics object twice.An example of a mathematical failure of the Pkt Size Avg metric when transmitting 2 packets of 6 bytes each:The 1st packet arrives (6 bytes): due to a bug, the software adds it twice. Accumulated sum of lengths = $6 + 6 = 12$. Packet counter in the statistics object = 2.The 2nd packet arrives (6 bytes): the software processes it correctly. Accumulated sum of lengths = $12 + 6 = $18. The number of packets to calculate the average size is taken as the actual number of packets per session (i.e. 2).The result of calculating the Pkt metric Size Avg = $\frac{18}{2} = 9$. At the same time, the neighboring feature of the average packet length (Pkt Len Mean) is calculated using another variable where this bug is missing, and returns the correct value of 6.Mutually exclusive mathematical features break the logic of building branches in tree classification models (for example, Random Forest and Gradient Boosting), as they create false linear dependencies. Additionally, the dataset files contain hidden constant features (the number of unique nunique values <= 1), which have no variance, do not carry useful information for class separation, and slow down the convergence of algorithms.2. Python Software Solution# At the post-processing stage of all 10 dataset files:
+
+A technical error has been made in the Java code of the CICFlowMeter network session initialization logic: the very first captured packet is added to the cumulative statistics object twice.
+
+**An example of a mathematical failure of the `Pkt Size Avg` metric when transmitting 2 packets of 6 bytes each:**
+
+* **The 1st packet arrives (6 bytes):** due to a bug, the software adds it twice. Accumulated sum of lengths = $6 + 6 = 12$. Packet counter in the statistics object = 2.
+* **The 2nd packet arrives (6 bytes):** the software processes it correctly. Accumulated sum of lengths = $12 + 6 = $18. The number of packets to calculate the average size is taken as the actual number of packets per session (i.e. 2).
+
+The result of the metric calculation is $\mathrm{Pkt\Size\Avg} = \frac{18}{2} = 9$. In this case, the neighboring feature of the average packet length (`Pkt Len Mean`) is calculated using another variable where this bug is missing, and returns the correct value of 6.
+
+Mutually exclusive mathematical features break the logic of building branches in tree classification models (for example, Random Forest and Gradient Boosting), as they create false linear dependencies. Additionally, the dataset files contain hidden constant features (the number of unique values of `nunique <= 1`), which have no variance, do not carry useful information for class separation, and slow down the convergence of algorithms.
+
+#### 2. Software solution
+
+```python
+# At the post-processing stage of all 10 dataset files:
 constant_per_file = {}
 
 for FILE in ALL_FILES:
@@ -260,7 +288,42 @@ for FILE in ALL_FILES:
     df.dropna(inplace=True)
     df.drop_duplicates(inplace=True)
     df.to_csv(filepath, index=False)
-3. Technical analysis and specification of the deleted features In the process of executing the filtering algorithm, 23 columns are excluded from the data structure. Below is a detailed analysis of each column being removed, grouped by the nature of the defect.3.1. A sign with a software flaw in calculating the PKT Size Avg (or Packet Size Avg): The average packet size. It is excluded due to a critical bug of double counting of the first packet in the session. Its preservation leads to duplication of Pkt Len Mean feature information, but with a shift in the mathematical expectation, which distorts the assessment of feature weights.3.2. Common constant features (invariants with a value of 0 in all subsamples)A group of features related to the statistics of block transfers (Bulk) and specific flags that, within the framework of the CSE-CIC-IDS2018 traffic generation topology, take a strictly constant value of $0$:Fwd Byts/b Avg (Forward Bytes/Bulk Avg): The average number of bytes in a forward transmission block. It is equal to $0$ for the entire dataset due to the lack of aggregation of block data by the parser.Fwd Pkts/b Avg (Forward Packets/Bulk Avg): The average number of packets in a forward transmission unit. A constant zero value.Fwd Blk Rate Avg (Forward Bulk Rate Avg): The average forward block transfer rate. It has no variance.Bwd Byts/b Avg (Backward Bytes/Bulk Avg): The average number of bytes in a block of transmission in the opposite direction. The constant is $0$.Bwd Pkts/b Avg (Backward Packets/Bulk Avg): The average number of packets in a reverse transmission unit. The constant is $0$.Bwd Blk Rate Avg (Backward Bulk Rate Avg): The average block transfer rate in the opposite direction. The constant is $0$.Bwd PSH Flags: The number of packets with the PUSH flag set in the opposite direction. Due to the specifics of capturing traffic by the utility, it takes the value $0$ in all sessions.Fwd URGENT Flags: The number of packets with the URGENT flag set in the forward direction. It does not contain an informative distribution (strict constant $0$).Bwd URGENT Flags: The number of packets with the URGENT flag set in the opposite direction. It is equal to $0$ in all records.CWE Flag Count: The number of packets with the Congestion Window Reduced flag. It takes a zero value in the entire population.3.3. Service metadata and network identifiers (ALWAYS_REMOVE list)These features are removed in order to avoid false training (overfitting) of models for a specific architecture of the test bench and the time intervals of the experiment.:Flow ID: A unique text identifier of the network stream. It contains unique string values for each session and is not subject to mathematical generalization.Src IP (Source IP): The IP address of the packet sender. It is excluded that the model does not remember the specific IP addresses of attacking machines recorded on the stand, but is trained on the behavioral characteristics of traffic.Dst IP (Destination IP): The IP address of the packet recipient. It is deleted to prevent the classifier from being tightly linked to the addresses of victim servers inside the AWS infrastructure.Src Port (Source Port): The source port of the connection. It is most often generated dynamically by the operating system (dynamic ports from the range 49152-65535), therefore it is random noise for the model.Timestamp: The timestamp of the stream commit. This leads to data drift and false attribution of network attacks to a specific time of day or date of the experiment.The removal of these 23 columns reduces the feature space to 60 semantically independent informative variables, ensuring the identity of the data structure in all ten processed files.
+```
+
+#### 3. Technical analysis and specification of the deleted features
+
+During the execution of the filtering algorithm, 23 columns are excluded from the data structure. Below is a detailed analysis of each column being removed, grouped by the nature of the defect.
+
+##### 3.1. A sign with a software calculation defect
+
+* **Pkt Size Avg (or Packet Size Avg):** Average package size. It is excluded due to a critical bug of double counting of the first packet in the session. Its preservation leads to duplication of the information of the "Pkt Len Mean` feature, but with a shift in the mathematical expectation, which distorts the assessment of the weights of the features.
+
+##### 3.2. Common constant features (invariants with a value of 0 in all subsamples)
+
+A group of features related to the statistics of block transfers (Bulk) and specific flags that, within the framework of the CSE-CIC-IDS2018 traffic generation topology, take a strictly constant value of 0:
+
+* **Fwd Byts/b Avg (Forward Bytes/Bulk Avg):** The average number of bytes in a forward transmission block. It is equal to 0 for the entire dataset due to the lack of aggregation of block data by the parser.
+* **Fwd Pkts/b Avg (Forward Packets/Bulk Avg):** The average number of packets in the forward transmission unit. A constant zero value.
+* **Fwd Blk Rate Avg (Forward Bulk Rate Avg):** Average forward block transfer rate. It has no variance.
+* **Bwd Byts/b Avg (Backward Bytes/Bulk Avg):** The average number of bytes in the transmission block in the opposite direction. The constant is 0.
+* **Bwd Pkts/b Avg (Backward Packets/Bulk Avg):** The average number of packets in the transmission block in the opposite direction. The constant is 0.
+* **Bwd Blk Rate Avg (Backward Bulk Rate Avg):** The average speed of transmission of blocks in the opposite direction. The constant is 0.
+* **Bwd PSH Flags:** The number of packets with the PUSH flag set in the opposite direction. Due to the specifics of capturing traffic by the utility, it takes the value 0 in all sessions.
+* **Fwd URG Flags:** The number of packets with the URGENT flag set in the forward direction. It does not contain an informative distribution (strict constant 0).
+* **Bwd URG Flags:** The number of packets with the URGENT flag set in the opposite direction. It is equal to 0 in all records.
+* **CWE Flag Count:** The number of packets with the Congestion Window Reduced flag. It takes a zero value in the entire population.
+
+##### 3.3. Service metadata and network identifiers (ALWAYS_REMOVE list)
+
+These features are removed in order to avoid false training (overfitting) of models for a specific architecture of the test bench and the time intervals of the experiment.:
+
+* **Flow ID:** A unique text identifier of the network stream. It contains unique string values for each session and is not subject to mathematical generalization.
+* **Src IP (Source IP):** The IP address of the packet sender. It is excluded that the model does not remember the specific IP addresses of attacking machines recorded on the stand, but is trained on the behavioral characteristics of traffic.
+* **Dst IP (Destination IP):** The IP address of the packet recipient. It is deleted to prevent the classifier from being tightly linked to the addresses of victim servers inside the AWS infrastructure.
+* **Src Port (Source Port):** The source port of the connection. It is most often generated dynamically by the operating system (dynamic ports from the range 49152-65535), therefore it is random noise for the model.
+* **Timestamp:** The time stamp of the stream fixation. This leads to data drift and false attribution of network attacks to a specific time of day or date of the experiment.
+
+The removal of these 23 columns reduces the feature space to 60 semantically independent informative variables, ensuring the identity of the data structure in all ten processed files.
 
 ### Cleaning conveyor results
 
@@ -272,8 +335,8 @@ STEP 1: Search for constant columns in all files
   [final_clean_Friday-16-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
   [final_clean_Friday-23-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
   [final_clean_Thuesday-20-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
-  [final_clean_Thursday-01-03- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
-  [final_clean_Thursday-15-02- 2018_TrafficForML_CICFlowMeter.csv] constant: 12
+  [final_clean_Thursday-01-03- 2018_TrafficForML_CICFlowMeter.csv] constant: 12
+  [final_clean_Thursday-15-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
   [final_clean_Thursday-22-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
   [final_clean_weedday-14-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
   [final_clean_weedday-21-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 13
@@ -285,10 +348,10 @@ STEP 2: Search for common constant columns (intersection)
   Constant in all files (11):
 - Bwd Blk Rate Avg
 - Bwd Byts/b Avg
-    - Bwd PSH Flags
-    - Bwd Pkts/b Avg
-    - Bwd URG Flags
-    - CWE Flag Count
+- Bwd PSH Flags
+- Bwd Pkts/b Avg
+- Bwd URG Flags
+- CWE Flag Count
     - Fwd Blk Rate Avg
     - Fwd Byts/b Avg
     - Fwd Pkts/b Avg
@@ -303,58 +366,49 @@ STEP 4: Cleaning all files (modification of source files)
 Size: (483066, 79) → (482068, 60)
 Duplicates removed: 998
     Classes: {'Benign': 339885, 'Bot': 142183}
-    , The file was successfully overwritten: final_clean_Friday-02-03- 2018_TrafficForML_CICFlowMeter.csv
 
   File editing: final_clean_Friday-16-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (467891, 79) → (467847, 60)
 Duplicates removed: 44
     Classes: {'Benign': 442299, 'DoS attacks-Hulk': 25548}
-    , The file was successfully overwritten: final_clean_Friday-16-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File editing: final_clean_Friday-23-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (402367, 79) → (400943, 60)
 Duplicates removed: 1424
     Classes: {'Benign': 400719, 'Brute Force -Web': 124, 'Brute Force -XSS': 73, 'SQL Injection': 27}
-    , The file was successfully overwritten: final_clean_Friday-23-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Thuesday-20-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (3169271, 81) → (3135576, 60)
-Duplicates deleted: 33695
+    Duplicates deleted: 33695
     Classes: {'Benign': 2846287, 'DDoS attacks-LOIC-HTTP': 289289}
-    , The file was successfully overwritten: final_clean_Thuesday-20-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Thursday-01-03- 2018_TrafficForML_CICFlowMeter.csv
 Size: (104533, 79) → (104188, 60)
 Duplicates removed: 345
     Classes: {'Benign': 80218, 'Infiltration': 23970}
-    , The file was successfully overwritten: final_clean_Thursday-01-03- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Thursday-15-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (379583, 79) → (377087, 60)
 Duplicates removed: 2496
     Classes: {'Benign': 341739, 'DoS attacks-GoldenEye': 27772, 'DoS attacks-Slowloris': 7576}
-    , The file was successfully overwritten: final_clean_Thursday-15-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Thursday-22-02- 2018_TrafficForML_CICFlowMeter.csv
-    Size: (400831, 79) → (399402, 60)
+Size: (400831, 79) → (399402, 60)
 Duplicates removed: 1429
     Classes: {'Benign': 399200, 'Brute Force -Web': 142, 'Brute Force -XSS': 39, 'SQL Injection': 21}
-    , The file was successfully overwritten: final_clean_Thursday-22-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Wednesday-14-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (359797, 79) → (358985, 60)
 Duplicates removed: 812
     Classes: {'Benign': 265167, 'SSH-Bruteforce': 93818}
-    , The file has been successfully overwritten: final_clean_Vednesday-14-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Wednesday-21-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (522380, 79) → (522379, 60)
-Duplicates removed: 1
+    Duplicates removed: 1
     Classes: {'Benign': 358629, 'DDOS attack-HOIC': 163750}
-    , The file has been successfully overwritten: final_clean_Vednesday-21-02- 2018_TrafficForML_CICFlowMeter.csv
 
   File edit: final_clean_Wednesday-28-02- 2018_TrafficForML_CICFlowMeter.csv
 Size: (190881, 79) → (190166, 60)
-Duplicates removed: 715    
+Duplicates removed: 715
     Classes: {'Benign': 169334, 'Infiltration': 20832}
-    , The file has been successfully overwritten: final_clean_Vednesday-28-02- 2018_TrafficForML_CICFlowMeter.csv
+``

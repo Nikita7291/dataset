@@ -3,6 +3,18 @@ site_name: Анализ ошибок датасета
 theme:
   name: material
 
+plugins:
+  - search
+  - i18n:
+      default_language: ru
+      languages:
+        ru:
+          name: Русский
+          build: true
+        en:
+          name: English
+          build: true
+
 nav:
   - Главная: index.md
   - О проекте: about.md

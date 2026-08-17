@@ -1,0 +1,835 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../about/">
+      
+      
+        <link rel="next" href="../analysis/">
+      
+      
+        
+          <link rel="alternate" href="../../progress/" hreflang="ru">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Ход работы - Анализ ошибок датасета</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#project-progress-report-technical-audit-preprocessing-and-visualization-of-the-cse-cic-ids2018-dataset" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Анализ ошибок датасета" class="md-header__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Анализ ошибок датасета
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Ход работы
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../progress/" hreflang="ru" class="md-select__link">
+              Русский
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Анализ ошибок датасета" class="md-nav__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Анализ ошибок датасета
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ход работы
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ход работы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-initialization-and-configuration-of-the-remote-github-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1. Initialization and configuration of the remote GitHub repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-connecting-participants-and-delimiting-access-rights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2. Connecting participants and delimiting access rights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-deployment-and-automation-of-the-static-mkdocs-website" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3. Deployment and automation of the static MkDocs website
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-4-study-of-the-structure-and-specification-of-the-source-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4. Study of the structure and specification of the source dataset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-5-statistical-analysis-and-profiling-of-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5. Statistical analysis and profiling of features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-6-identification-of-critical-defects-and-anomalies-in-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6. Identification of critical defects and anomalies in the data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-7-software-anomaly-removal-data-cleaning-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 7. Software anomaly removal (Data Cleaning Pipeline)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-8-building-analytical-graphs-and-visualizing-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 8. Building analytical graphs and visualizing distributions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Графики
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Выводы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Авторы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#stage-1-initialization-and-configuration-of-the-remote-github-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 1. Initialization and configuration of the remote GitHub repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-2-connecting-participants-and-delimiting-access-rights" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 2. Connecting participants and delimiting access rights
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-3-deployment-and-automation-of-the-static-mkdocs-website" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 3. Deployment and automation of the static MkDocs website
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-4-study-of-the-structure-and-specification-of-the-source-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 4. Study of the structure and specification of the source dataset
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-5-statistical-analysis-and-profiling-of-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 5. Statistical analysis and profiling of features
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-6-identification-of-critical-defects-and-anomalies-in-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 6. Identification of critical defects and anomalies in the data
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-7-software-anomaly-removal-data-cleaning-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 7. Software anomaly removal (Data Cleaning Pipeline)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stage-8-building-analytical-graphs-and-visualizing-distributions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Stage 8. Building analytical graphs and visualizing distributions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="project-progress-report-technical-audit-preprocessing-and-visualization-of-the-cse-cic-ids2018-dataset">Project Progress report: "Technical audit, preprocessing and visualization of the CSE-CIC-IDS2018 dataset"</h1>
+<h2 id="stage-1-initialization-and-configuration-of-the-remote-github-repository">Stage 1. Initialization and configuration of the remote GitHub repository</h2>
+<ul>
+<li><strong>The content of the works:</strong> Creation of a remote repository "Nikita7291/dataset" on the GitHub platform to ensure shared access and strict version control of the source code and documentation.</li>
+<li><strong>Technical results:</strong> Initialize the project structure, create a configuration file '.gitignore<code>to filter temporary files of the Python/Jupyter Notebook environment, and make a primary commit of the basic architecture to the</code>main' branch.</li>
+</ul>
+<h2 id="stage-2-connecting-participants-and-delimiting-access-rights">Stage 2. Connecting participants and delimiting access rights</h2>
+<ul>
+<li><strong>The content of the works:</strong> Organization of a distributed collaborative development environment. Adding members of the engineering team to the repository with the rights to make changes (Collaborators).</li>
+<li><strong>Technical results:</strong> Setting up a branching policy, delineating areas of responsibility for the parallel management of the analytical and software parts of the project.</li>
+</ul>
+<h2 id="stage-3-deployment-and-automation-of-the-static-mkdocs-website">Stage 3. Deployment and automation of the static MkDocs website</h2>
+<ul>
+<li><strong>The content of the works:</strong> Deployment of the MkDocs static website generator to maintain interactive project documentation. Designing the configuration file <code>mkdocs.yml</code>, defining the structure of the navigation menu (<code>nav</code>) and selecting a visual design theme.</li>
+<li><strong>Technical results:</strong> Setting up an automatic CI/CD pipeline via GitHub Actions. Creating a configuration script using the path <code>.github/workflows/ci.yml'. The pipeline automatically tracks commits to the</code>main<code>branch, parses and compiles Markdown files from the</code>docs/<code>directory into valid HTML code, and then dispatches the collected static content to the</code>gh-pages` service branch to update the site on the GitHub Pages server.</li>
+</ul>
+<h2 id="stage-4-study-of-the-structure-and-specification-of-the-source-dataset">Stage 4. Study of the structure and specification of the source dataset</h2>
+<ul>
+<li><strong>Content of the works:</strong> Architecture study of the network security reference dataset CSE-CIC-IDS2018. Estimation of the total sample size, traffic distribution structure, and mechanisms for generating network metrics generated by the CICFlowMeter utility when intercepting packets.</li>
+<li><strong>Technical results:</strong> Formation of an understanding of the nature of the target variable <code>Label</code> (differentiation of legitimate traffic <code>Benign</code> and various categories of network attacks) and the structure of the 80 initial features.</li>
+</ul>
+<h2 id="stage-5-statistical-analysis-and-profiling-of-features">Stage 5. Statistical analysis and profiling of features</h2>
+<ul>
+<li><strong>Content of the works:</strong> Primary data profiling using the pandas and numpy libraries. Application of methods <code>df.info ()</code> and <code>df.describe()</code> to calculate basic statistical metrics (mean, median, standard deviation, minima, maxima, and quantiles).</li>
+<li><strong>Technical results:</strong> Defining data types in columns, identifying features with abnormally high variance, and fixing columns containing non-numeric artifacts in continuous quantities.</li>
+</ul>
+<h2 id="stage-6-identification-of-critical-defects-and-anomalies-in-the-data">Stage 6. Identification of critical defects and anomalies in the data</h2>
+<p>During a deep technical audit of the data structure, the following critical defects were localized and classified, distorting the mathematical apparatus of machine learning models (in particular, the Random Forest algorithm):</p>
+<ul>
+<li><strong>Missing values (NaN):</strong> The presence of blank records of network flows caused by technical failures during traffic aggregation.</li>
+<li><strong>Infinite values (<code>inf</code> / <code>-inf</code>):</strong> Mathematical artifacts of division by zero in the calculation of speed characteristics (in terms of <code>Flow Packets/s</code> and <code>Flow Bytes/s</code>) that occur when the duration of the flow is zero (<code>Flow Duration = 0</code>).</li>
+<li><strong>Data type errors:</strong> Incorrect interpretation of numeric columns as text (<code>object</code>) due to the presence of header rows that were repeatedly duplicated inside the dataset when gluing the original CSV files.</li>
+<li><strong>Constant signs:</strong> Columns with zero variance (containing the same value in all rows of the sample), which do not carry useful information for training classifiers.</li>
+</ul>
+<h2 id="stage-7-software-anomaly-removal-data-cleaning-pipeline">Stage 7. Software anomaly removal (Data Cleaning Pipeline)</h2>
+<p>Development and application of a Python data purification pipeline to bring the sample to a mathematically correct form:</p>
+<ol>
+<li><strong>Replacing and deleting incorrect values:</strong></li>
+</ol>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Converting infinite values to the standard pass category (NaN)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Permanently deleting lines containing omissions</span>
+<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</code></pre></div>
+
+<ol>
+<li><strong>Correction of data types:</strong> Forced conversion of features to the correct types <code>float64</code> and <code>int64</code> with pre-filtering and removal of duplicate text headers of the CICFlowMeter utility.</li>
+<li><strong>Feature filtering:</strong> Extracting and deleting columns with a single unique value ('df[col].nunique() &lt;= 1`) to reduce the dimension of the feature space and prevent overfitting the model.</li>
+</ol>
+<h2 id="stage-8-building-analytical-graphs-and-visualizing-distributions">Stage 8. Building analytical graphs and visualizing distributions</h2>
+<ul>
+<li><strong>The content of the works:</strong> Implementation of graphical analysis of the processed data using the libraries <code>matplotlib</code> and `seaborn' to confirm the quality of the cleaning.</li>
+<li><strong>Technical results:</strong></li>
+<li>Constructing histograms of the distribution of numerical metrics to assess the skewness and kurtosis of distributions.</li>
+<li>Creation of span diagrams ("whisker boxes") to detect and isolate extreme statistical outliers.</li>
+<li>Construction of a correlation matrix (Heatmap) to identify multicollinear features to be excluded before the training stage.</li>
+<li>Visualization of the class ratio (legitimate traffic / attack) to assess the degree of imbalance of the target variable.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../about/" class="md-footer__link md-footer__link--prev" aria-label="Previous: О проекте">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                О проекте
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../analysis/" class="md-footer__link md-footer__link--next" aria-label="Next: Анализ датасета">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Анализ датасета
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

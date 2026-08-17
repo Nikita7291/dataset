@@ -1,0 +1,1029 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../progress/">
+      
+      
+        
+          <link rel="alternate" href="../../about/" hreflang="ru">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>О проекте - Анализ ошибок датасета</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#about-the-project-research-and-preparation-of-the-network-traffic-dataset-cse-cic-ids2018" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Анализ ошибок датасета" class="md-header__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Анализ ошибок датасета
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              О проекте
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../about/" hreflang="ru" class="md-select__link">
+              Русский
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Анализ ошибок датасета" class="md-nav__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Анализ ошибок датасета
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-general-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. General information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sources-and-origin-of-cse-cic-ids2018" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data sources and origin of CSE-CIC-IDS2018
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-relevance-of-the-topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Relevance of the topic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-purpose-and-objectives-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The purpose and objectives of the project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-dataset-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Dataset description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Dataset description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-data-origin-and-generation-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Data origin and generation infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-taxonomy-of-the-presented-traffic-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Taxonomy of the presented traffic categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-the-structure-of-the-feature-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. The structure of the feature space
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-technologies-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Technologies used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-initial-problems-and-defects-in-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Initial problems and defects in the data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Initial problems and defects in the data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-missing-values-nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Missing Values (NaN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-infinite-values-inf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Infinite values (inf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-incorrect-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Incorrect data types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-extreme-class-imbalance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Extreme Class imbalance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ход работы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Графики
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Выводы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Авторы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-general-information" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. General information
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-sources-and-origin-of-cse-cic-ids2018" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Data sources and origin of CSE-CIC-IDS2018
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-relevance-of-the-topic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Relevance of the topic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-the-purpose-and-objectives-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. The purpose and objectives of the project
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-dataset-description" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Dataset description
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Dataset description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-data-origin-and-generation-infrastructure" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1. Data origin and generation infrastructure
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-taxonomy-of-the-presented-traffic-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2. Taxonomy of the presented traffic categories
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-the-structure-of-the-feature-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3. The structure of the feature space
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-technologies-used" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Technologies used
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-initial-problems-and-defects-in-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Initial problems and defects in the data
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Initial problems and defects in the data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-missing-values-nan" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1. Missing Values (NaN)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-infinite-values-inf" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2. Infinite values (inf)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-incorrect-data-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3. Incorrect data types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-extreme-class-imbalance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4. Extreme Class imbalance
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="about-the-project-research-and-preparation-of-the-network-traffic-dataset-cse-cic-ids2018">About the project: Research and preparation of the network traffic dataset CSE-CIC-IDS2018</h1>
+<hr />
+<h2 id="1-general-information">1. General information</h2>
+<p>The project is dedicated to the research, profiling and preparation of a reference dataset of network traffic <strong>CSE-CIC-IDS2018</strong> (Collaborative Project of the Communications Security Establishment &amp; Canadian Institute for Cybersecurity). This dataset is an industry standard for the design, testing and validation of modern intrusion detection systems (IDS) and the application of classification algorithms using machine learning methods.</p>
+<p>The project examines structured network flows containing both profiles of regular network activity (legitimate traffic) and vectorized traces of targeted cyber attacks of various types. Each record in the dataset is a vector of statistical features extracted from network packets at the transport and network layers of the OSI model.</p>
+<h2 id="data-sources-and-origin-of-cse-cic-ids2018">Data sources and origin of CSE-CIC-IDS2018</h2>
+<p>The original dataset <strong>CSE-CIC-IDS2018</strong> was developed jointly by the Canadian Cybersecurity Institute (CIC) and the Canadian Communications Security Center (CSE). The traffic was generated in a large-scale Amazon AWS cloud environment and includes network flow logs extracted using the CICFlowMeter-V3 utility.</p>
+<p><strong>Official resources:</strong></p>
+<ul>
+<li><strong>Website of the authors (CIC):</strong> <a href="http://www.unb.ca/cic/datasets/ids-2018.html">CSE-CIC-IDS2018 Dataset</a></li>
+<li><strong>AWS Open Data Registry:</strong> <a href="https://registry.opendata.aws/cse-cic-ids2018/">A Realistic Cyber Defense Dataset</a></li>
+</ul>
+<hr />
+<h2 id="2-relevance-of-the-topic">2. Relevance of the topic</h2>
+<p>The dynamic scaling of corporate networks and the increasing complexity of the cyber threat landscape determine strict requirements for automated network security tools. Traditional signature intrusion detection methods are ineffective against Zero-Day vulnerabilities and combined distributed attacks.</p>
+<p>The use of mathematical machine learning tools makes it possible to identify hidden patterns and anomalies in network behavior. However, the quality and generalizing ability of preimplicative models directly depend on the purity of the initial sample. Network traffic collected in real time is characterized by high noise, the presence of technical defects, and extreme class imbalance. Studying the structure and correct preparation of such data is an essential foundation for building reliable information security systems.</p>
+<hr />
+<h2 id="3-the-purpose-and-objectives-of-the-project">3. The purpose and objectives of the project</h2>
+<p><strong>The purpose of the project:</strong> Investigation of the internal structure of the network traffic dataset, identification of system anomalies, recording defects, and comprehensive preparation of the feature space for subsequent use in machine learning classification models.</p>
+<p><strong>Project objectives:</strong></p>
+<ul>
+<li>To study the architecture of network traffic features and metrics in the CSE-CIC-IDS2018 dataset.</li>
+<li>To analyze the distribution structure of the target variable and assess the degree of class imbalance.</li>
+<li>Audit the data for omissions, infinite values, and data type inconsistencies.</li>
+<li>Create requirements for the purification and transformation of the original features.</li>
+<li>Develop analytical visualizations to interpret the relationships between features.</li>
+<li>Prepare a valid data set for the next stage of mathematical modeling.</li>
+</ul>
+<hr />
+<h2 id="4-dataset-description">4. Dataset description</h2>
+<h3 id="41-data-origin-and-generation-infrastructure">4.1. Data origin and generation infrastructure</h3>
+<p>The dataset was developed on the basis of the Amazon Web Services (AWS) cloud infrastructure by specialists from the Canadian Cybersecurity Institute. The simulation of network activity included:</p>
+<ul>
+<li>An isolated network topology consisting of 50 target workstations (victim segment);</li>
+<li>Dedicated infrastructure of 30 attacking hosts;</li>
+<li>Collecting raw network traffic in the PCAP format over 10 systematic sessions (days).</li>
+</ul>
+<p>A specialized utility <strong>CICFlowMeter V3</strong> was used to extract numerical features from <code>PCAP</code> dumps. It groups packets into bidirectional network flows, defined by a 5-signature key (source/receiver IP address, source/receiver port, protocol type), and calculates more than 80 mathematical and time metrics for each stream.</p>
+<h3 id="42-taxonomy-of-the-presented-traffic-categories">4.2. Taxonomy of the presented traffic categories</h3>
+<p>The dataset contains differentiated records, divided into enlarged classes, reflecting the profiles of real threats.:</p>
+<ol>
+<li><strong>Benign:</strong> Reference legitimate traffic generated during the execution of standard user protocols (HTTP, HTTPS, SSH, FTP, DNS).</li>
+<li><strong>Brute Force (Brute Force):</strong> Attempts to gain unauthorized access to network services by going through credentials (<code>FTP-BruteForce</code>, `SSH-BruteForce').</li>
+<li><strong>DoS (Denial of Service):</strong> Attacks aimed at exhausting server resources (memory, processor, connection pool). Include modifications: <code>DoS-GoldenEye',</code>DoS-Slowloris', <code>DoS-SlowHTTPTest',</code>DoS-Hulk'.</li>
+<li><strong>DDoS (Distributed Denial of Service):</strong> Distributed denial of service attacks implemented at the network and application layers: <code>DDoS-LOIC-HTTP',</code>DDoS-LOIC-UDP<code>,</code>DDoS-HOIC'.</li>
+<li><strong>Web Attacks:</strong> Web application vulnerabilities injected into HTTP sessions: <code>SQL Injection</code>, <code>Command Injection</code>, `Cross-Site Scripting (XSS)'.</li>
+<li><strong>Infiltration:</strong> Penetration into the protected perimeter of the network by exploiting client software vulnerabilities, followed by scanning the local network and deploying backdoors.</li>
+<li><strong>Botnet:</strong> Traffic generated by infected workstations when interacting with command servers (C&amp;C servers), modeled on the Ares malware.</li>
+</ol>
+<h3 id="43-the-structure-of-the-feature-space">4.3. The structure of the feature space</h3>
+<p>80 dataset features are divided into the following key categories:</p>
+<ul>
+<li><strong>Stream IDs:</strong> 'Dst Port' (Destination port), `Protocol' (Transport protocol identifier: TCP/UDP/ICMP).</li>
+<li><strong>Time characteristics (Duration metrics):</strong></li>
+<li>`Flow Duration' — the total duration of the network stream (in microseconds).</li>
+<li>
+<p>`Flow IAT' (Inter-Arrival Time) — statistical indicators of the time intervals between packets (Mean, Std, Max, Min) separately for forward (Fwd) and reverse (Bwd) directions.</p>
+</li>
+<li>
+<p><strong>Volume traffic parameters:</strong> <code>Total Fwd Packets',</code>Total Backward Packets` — the total number of transmitted and received packets within the session.</p>
+</li>
+<li><strong>Speed characteristics:</strong></li>
+<li>`Flow Bytes/s' — data transfer rate (bytes per second).</li>
+<li>
+<p>`Flow Packets/s' — the intensity of the packet flow (packets per second).</p>
+</li>
+<li>
+<p><strong>Packet length statistics:</strong> <code>Fwd Packet Length Max/Min/Mean/Std</code>, `Bwd Packet Length Max/Min/Mean/Std' — describe the geometric traffic profile.</p>
+</li>
+<li><strong>TCP Header Flags:</strong> 'Fwd PSH Flags', <code>Bwd URG Flags</code>, <code>FIN Flag Count</code>, <code>SYN Flag Count</code>, <code>RST Flag Count</code>, <code>PSH Flag Count</code>, `ACK Flag Count' — detect the presence of specific control bits specific to port scanning or SYN-Flood attacks.</li>
+<li><strong>Buffering and Window settings:</strong> <code>Init_Win_bytes_forward</code>, <code>Init_Win_bytes_backward</code> — the size of the initial TCP window, which is a strong discriminative feature in identifying the host operating system.</li>
+<li><strong>State Activity Metrics:</strong> <code>Active Mean/Std/Max/Min</code> (the time of stream activity before switching to standby mode), `Idle Mean/Std/Max/Min' (the time when the stream is in a passive state).</li>
+<li><strong>Target attribute:</strong> <code>Label' is a string label that determines whether the stream belongs to a legitimate class (</code>Benign`) or a specific type of attack.</li>
+</ul>
+<hr />
+<h2 id="5-technologies-used">5. Technologies used</h2>
+<p>A software stack based on the <strong>Python 3 language has been deployed to implement research tasks.</strong>:</p>
+<ul>
+<li><strong>Pandas:</strong> The main tool for manipulating tabular data structures, aggregation and vectorized column processing.</li>
+<li><strong>NumPy:</strong> Performing mathematical calculations and operating with system constants of numeric types.</li>
+<li><strong>Matplotlib / Seaborn:</strong> Construction of a package of statistical graphs, histograms of distribution density and thermal maps of correlation matrices.</li>
+<li><strong>Git / GitHub:</strong> Providing source code version control and sharing of materials.</li>
+<li><strong>MkDocs:</strong> Generation of a static project website for maintaining project documentation.</li>
+</ul>
+<hr />
+<h2 id="6-initial-problems-and-defects-in-the-data">6. Initial problems and defects in the data</h2>
+<p>The initial data set of CSE-CIC-IDS2018 contains a number of critical defects that impose limitations on the direct application of the mathematical apparatus of machine learning models.:</p>
+<h3 id="61-missing-values-nan">6.1. Missing Values (NaN)</h3>
+<p>Non-numeric voids are localized in the columns of speed characteristics. They occur due to failures of the CICFlowMeter utility parser when processing incomplete or corrupted TCP sessions, where it is impossible to correctly calculate the final metrics.</p>
+<h3 id="62-infinite-values-inf">6.2. Infinite values (inf)</h3>
+<p>The presence of positive and negative infinity values in the <code>Flow Bytes/s</code> and <code>Flow Packets/s</code> features was revealed. This anomaly occurs when the network flow duration is zero (<code>Flow Duration = 0</code> microseconds), which leads to the mathematical uncertainty of dividing by zero when calculating the specific intensity.</p>
+<h3 id="63-incorrect-data-types">6.3. Incorrect data types</h3>
+<p>A number of numeric attributes are initially interpreted as a text type (`object'). The reason is that the selection is littered with duplicate header lines with column names that appeared during the concatenation of the original CSV files.</p>
+<h3 id="64-extreme-class-imbalance">6.4. Extreme Class imbalance</h3>
+<p>The statistical distribution of the target variable `Label' is shifted:</p>
+<ul>
+<li>Legitimate traffic (<code>Benign</code>): <strong>~87%</strong></li>
+<li>Total share of network attacks: <strong>~13%</strong></li>
+</ul>
+<p>This factor requires prior consideration when selecting performance metrics for future models, excluding the use of the standard `Accuracy' metric.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Previous: Главная">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Главная
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../progress/" class="md-footer__link md-footer__link--next" aria-label="Next: Ход работы">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Ход работы
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

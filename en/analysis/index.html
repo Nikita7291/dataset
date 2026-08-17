@@ -1,0 +1,1854 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../progress/">
+      
+      
+        <link rel="next" href="../graphs/">
+      
+      
+        
+          <link rel="alternate" href="../../analysis/" hreflang="ru">
+        
+          <link rel="alternate" href="./" hreflang="en">
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Анализ датасета - Анализ ошибок датасета</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#technical-analysis-of-data-quality-step-by-step-analysis-of-8-critical-defects-of-the-cse-cic-ids2018-dataset-according-to-the-methodology-of-the-isp-ras" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../" title="Анализ ошибок датасета" class="md-header__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Анализ ошибок датасета
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Анализ датасета
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../analysis/" hreflang="ru" class="md-select__link">
+              Русский
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="Анализ ошибок датасета" class="md-nav__button md-logo" aria-label="Анализ ошибок датасета" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Анализ ошибок датасета
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Главная
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    О проекте
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../progress/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ход работы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Анализ датасета
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#raw-dataset-problems-and-prerequisites-for-cleaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw dataset problems and prerequisites for cleaning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Raw dataset problems and prerequisites for cleaning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-data-leakage-and-collinear-duplicate-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1. Data Leakage and collinear duplicate columns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 1. Data Leakage and collinear duplicate columns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-embedded-strings-headers-and-syntactic-garbage-of-the-target-variable-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2. Embedded strings-headers and syntactic garbage of the target variable (Label)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 2. Embedded strings-headers and syntactic garbage of the target variable (Label)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-string-garbage-infinity-and-nan-in-the-speed-characteristics-of-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3. String garbage "Infinity" and "NaN" in the speed characteristics of traffic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 3. String garbage &#34;Infinity&#34; and &#34;NaN&#34; in the speed characteristics of traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-4-premature-closure-and-fragmentation-of-sessions-by-the-fin-flag-fin-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4. Premature closure and fragmentation of sessions by the FIN flag (FIN bug)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 4. Premature closure and fragmentation of sessions by the FIN flag (FIN bug)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-5-memory-sessions-are-hanging-due-to-ignoring-the-hard-reset-of-rst-rst-bug-and-physical-defects-of-the-sign-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5. Memory sessions are hanging due to ignoring the hard reset of RST (RST bug) and physical defects of the sign fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 5. Memory sessions are hanging due to ignoring the hard reset of RST (RST bug) and physical defects of the sign fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-6-conflict-of-timeouts-and-hardcore-session-limits-120c-vs-600c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 6. Conflict of timeouts and hardcore session limits (120c vs 600c)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 6. Conflict of timeouts and hardcore session limits (120c vs 600c)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-7-incorrect-accounting-of-ethernet-padding-6-bytes-out-of-nowhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 7. Incorrect accounting of Ethernet Padding (+6 bytes out of nowhere)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 7. Incorrect accounting of Ethernet Padding (+6 bytes out of nowhere)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-8-double-counting-of-the-first-packet-bug-average-packet-size-9-and-common-constant-signs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 8. Double counting of the first packet (bug Average Packet Size = 9) and common constant signs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 8. Double counting of the first packet (bug Average Packet Size = 9) and common constant signs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-and-specification-of-the-deleted-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis and specification of the deleted features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Technical analysis and specification of the deleted features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-a-sign-with-a-software-calculation-defect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. A sign with a software calculation defect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-common-constant-features-invariants-with-a-value-of-0-in-all-subsamples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Common constant features (invariants with a value of 0 in all subsamples)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-service-metadata-and-network-identifiers-always_remove-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Service metadata and network identifiers (ALWAYS_REMOVE list)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-conveyor-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cleaning conveyor results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../graphs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Графики
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../results/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Выводы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../authors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Авторы
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#raw-dataset-problems-and-prerequisites-for-cleaning" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raw dataset problems and prerequisites for cleaning
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Raw dataset problems and prerequisites for cleaning">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#problem-1-data-leakage-and-collinear-duplicate-columns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 1. Data Leakage and collinear duplicate columns
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 1. Data Leakage and collinear duplicate columns">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-2-embedded-strings-headers-and-syntactic-garbage-of-the-target-variable-label" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 2. Embedded strings-headers and syntactic garbage of the target variable (Label)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 2. Embedded strings-headers and syntactic garbage of the target variable (Label)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-3-string-garbage-infinity-and-nan-in-the-speed-characteristics-of-traffic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 3. String garbage "Infinity" and "NaN" in the speed characteristics of traffic
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 3. String garbage &#34;Infinity&#34; and &#34;NaN&#34; in the speed characteristics of traffic">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-4-premature-closure-and-fragmentation-of-sessions-by-the-fin-flag-fin-bug" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 4. Premature closure and fragmentation of sessions by the FIN flag (FIN bug)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 4. Premature closure and fragmentation of sessions by the FIN flag (FIN bug)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-5-memory-sessions-are-hanging-due-to-ignoring-the-hard-reset-of-rst-rst-bug-and-physical-defects-of-the-sign-fields" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 5. Memory sessions are hanging due to ignoring the hard reset of RST (RST bug) and physical defects of the sign fields
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 5. Memory sessions are hanging due to ignoring the hard reset of RST (RST bug) and physical defects of the sign fields">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-6-conflict-of-timeouts-and-hardcore-session-limits-120c-vs-600c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 6. Conflict of timeouts and hardcore session limits (120c vs 600c)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 6. Conflict of timeouts and hardcore session limits (120c vs 600c)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-7-incorrect-accounting-of-ethernet-padding-6-bytes-out-of-nowhere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 7. Incorrect accounting of Ethernet Padding (+6 bytes out of nowhere)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 7. Incorrect accounting of Ethernet Padding (+6 bytes out of nowhere)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-of-the-solution_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis of the solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#problem-8-double-counting-of-the-first-packet-bug-average-packet-size-9-and-common-constant-signs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Problem 8. Double counting of the first packet (bug Average Packet Size = 9) and common constant signs
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Problem 8. Double counting of the first packet (bug Average Packet Size = 9) and common constant signs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-the-essence-and-nature-of-the-problem_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. The essence and nature of the problem
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-software-solution_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Software solution
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-technical-analysis-and-specification-of-the-deleted-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Technical analysis and specification of the deleted features
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Technical analysis and specification of the deleted features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-a-sign-with-a-software-calculation-defect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1. A sign with a software calculation defect
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-common-constant-features-invariants-with-a-value-of-0-in-all-subsamples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2. Common constant features (invariants with a value of 0 in all subsamples)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-service-metadata-and-network-identifiers-always_remove-list" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.3. Service metadata and network identifiers (ALWAYS_REMOVE list)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-conveyor-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cleaning conveyor results
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="technical-analysis-of-data-quality-step-by-step-analysis-of-8-critical-defects-of-the-cse-cic-ids2018-dataset-according-to-the-methodology-of-the-isp-ras">Technical analysis of data quality: Step-by-step analysis of 8 critical defects of the CSE-CIC-IDS2018 dataset according to the methodology of the ISP RAS</h1>
+<p>When designing intrusion detection systems (IDS) based on machine learning, the quality of the input data determines the stability and generalizing ability of the models. The <strong>CSE-CIC-IDS2018</strong> dataset, despite its widespread use, contains a number of deep defects and physical anomalies that occurred at the stage of traffic interception and aggregation by the `CICFlowMeter' utility.</p>
+<p>If you transfer this data to a classifier (for example, Random Forest) without specialized processing, the algorithm will learn from technical noise and data collection artifacts, completely losing the ability to detect real threats in the production network. Below is a detailed analysis of 8 key dataset issues fixed in the cleaning software pipeline.</p>
+<h2 id="raw-dataset-problems-and-prerequisites-for-cleaning">Raw dataset problems and prerequisites for cleaning</h2>
+<p>Despite its de facto standard status, the raw dataset <strong>CSE-CIC-IDS2018</strong> contains a number of critical technical issues. Our project implements a strict pre-cleaning pipeline (processing NaNs, infinities and removing duplicates). The need for such steps is confirmed by the research of other authors:</p>
+<ol>
+<li>
+<p><strong>Critical imbalance and lack of cleaning standards:</strong>
+In the scientific paper <em>"A survey and analysis of intrusion detection models based on CSE-CIC-IDS2018 Big Data" (Leevy et al.)</em> The authors analyzed the existing models and came to the conclusion that most researchers ignore the problem of class imbalance, and there is practically no information about dataset cleaning methods, which ruins the reproducibility of experiments. 
+<strong>Research:</strong> <a href="https://www.researchgate.net/publication/346536711_A_survey_and_analysis_of_intrusion_detection_models_based_on_CSE-CIC-IDS2018_Big_Data">ResearchGate / Springer</a></p>
+</li>
+<li>
+<p><strong>Labeling Errors:</strong>
+Other researchers who analyzed the structure of the logs in detail revealed that in CSE-CIC-IDS2018 there is a significant proportion of errors in the labeling errors itself, which is estimated at about 6.67%. This directly affects the quality of classifiers' training on raw data.
+<strong>Mention of the problem in reviews (Liu et al.):</strong> <a href="https://arxiv.org/html/2402.10974v1">arXiv:2402.10974</a></p>
+</li>
+<li>
+<p><strong>Multicollinearity and redundancy of features (Feature Redundancy):</strong>
+An analysis of the extracted CSE-CIC-IDS2018 network streams shows the presence of huge clusters of dependent variables. Many metrics (for example, packet counters and total byte volumes) have a correlation coefficient &gt;0.9. As noted in the fundamental reviews of the dataset, the direct use of all the initial features without correlation analysis (Feature Selection) leads to overfitting algorithms and critical overspending of RAM.
+<strong>Investigation of the problem of feature selection (Leevy et al., 2020):</strong> <a href="https://journalofbigdata.springeropen.com/articles/10.1186/s40537-020-00382-x">Journal of Big Data: Analysis of models based on CSE-CIC-IDS2018</a></p>
+</li>
+</ol>
+<hr />
+<h3 id="problem-1-data-leakage-and-collinear-duplicate-columns">Problem 1. Data Leakage and collinear duplicate columns</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem">1. The essence and nature of the problem</h4>
+<p>The anomaly lies in the presence of static infrastructure parameters of the test bench: fixed IP addresses of attackers and victims, source ports, stream identifiers and the exact time of the tests (<code>Timestamp</code>, <code>Src IP</code>, <code>Dst IP</code>, <code>Source IP</code>, <code>Destination IP</code>, <code>Flow ID</code>, <code>Src Port</code>). Decision trees are instantly linked to these markers, giving a false accuracy of 99.9% on the laboratory test sample, but completely losing the ability to classify in a real network with other IP addresses. Additionally, due to hardware failures of the parser, hidden collinear duplicates of features with the suffixes <code>.1</code> and <code>.2</code> appeared.</p>
+<h4 id="2-software-solution">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">glob</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">input_dir</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"C:\Users\user\CSE-CIC-IDS2018_ML"</span>
+<span class="n">source_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s2">"*.csv"</span><span class="p">))</span>
+
+<span class="n">output_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s2">"final_cleaned_datasets"</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">leakage_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Timestamp'</span><span class="p">,</span> <span class="s1">'Src IP'</span><span class="p">,</span> <span class="s1">'Dst IP'</span><span class="p">,</span> <span class="s1">'Source IP'</span><span class="p">,</span> <span class="s1">'Destination IP'</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">file_path</span> <span class="ow">in</span> <span class="n">source_files</span><span class="p">:</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">file_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"final_clean_"</span><span class="p">):</span>
+        <span class="k">continue</span>
+
+    <span class="n">preview</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">nrows</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">cols_to_drop</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">preview</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.1'</span><span class="p">)</span> <span class="ow">or</span> <span class="n">col</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">'.2'</span><span class="p">)]</span>
+    <span class="n">cols_to_drop</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">leakage_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">preview</span><span class="o">.</span><span class="n">columns</span><span class="p">])</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution">3. Technical analysis of the solution</h4>
+<p>Pre-reading the first 5 rows (<code>nrows=5</code>) allows you to dynamically identify and isolate hardware duplicate columns. The accumulated list of <code>cols_to_drop</code> cuts off the features of the network topology of the stand, preventing retraining of the model on specific network nodes.</p>
+<hr />
+<h3 id="problem-2-embedded-strings-headers-and-syntactic-garbage-of-the-target-variable-label">Problem 2. Embedded strings-headers and syntactic garbage of the target variable (<code>Label</code>)</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_1">1. The essence and nature of the problem</h4>
+<p>The defect occurred at the stage of rough merging of the original CSV files into single arrays. As a result, the rows with column names repeatedly got inside the data matrices, interrupting the numerical sequences. The presence of text headers inside numeric fields forces Pandas to convert the entire column to the <code>object</code> type, blocking mathematical calculations. Additionally, the target feature <code>Label</code> contains invisible end spaces (for example, <code>"Benign "</code>), as well as spelling errors (<code>Infiltration</code>), which artificially multiplies the number of classes.</p>
+<h4 id="2-software-solution_1">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code>    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">chunksize</span><span class="o">=</span><span class="mi">300000</span><span class="p">,</span> <span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">'c'</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">'Label'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">'label'</span><span class="p">]</span>
+            <span class="n">chunk</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="s1">'Flow ID'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">'Flow ID'</span><span class="p">])</span>
+            <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Flow ID'</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">''</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution_1">3. Technical analysis of the solution</h4>
+<p>The streaming pipeline (<code>chunksize=300000</code>) filters out embedded headers using a logical non-equality mask <code>label". The '.str.strip()</code> method completely removes the end spaces, restoring the correct class distribution and preparing the lines for correcting typos at the final assembly stage. The 'Flow ID` validation excludes sessions with a collapsed identifier structure.</p>
+<hr />
+<h3 id="problem-3-string-garbage-infinity-and-nan-in-the-speed-characteristics-of-traffic">Problem 3. String garbage "Infinity" and "NaN" in the speed characteristics of traffic</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_2">1. The essence and nature of the problem</h4>
+<p>The <code>Flow Bytes/s</code> and <code>Flow Packets/s</code> attributes contain the text strings <code>"Infinity"</code>, <code>"-Infinity"</code> or <code>"NaN"</code> instead of numeric values. This is a consequence of processing microsessions with a duration of <code>Flow Duration = 0</code> (packets arrived in one millisecond). At the Java code level, the <code>CICFlowMeter</code> utility calculates the speed using the formula:</p>
+<p><img alt="Speed = Volume / Duration" src="https://latex.codecogs.com/svg.latex?\mathrm{Speed}=\frac{\mathrm{Volume}}{\mathrm{Duration}}" /></p>
+<p>When dividing a non-zero volume by <code>0.0</code>, Java returns the built-in object <code>Double.POSITIVE_INFINITY</code>, which is written as text when converted to CSV, distorting the data type of the entire column.</p>
+<h4 id="2-software-solution_2">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_cols</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+                <span class="n">chunk</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'coerce'</span><span class="p">)</span>
+
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">available_numeric</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">numeric_cols</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="n">available_numeric</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution_2">3. Technical analysis of the solution</h4>
+<p>The <code>pd.to_numeric</code> method with the <code>errors='coerce' parameter forcibly converts column data types to numeric ones, automatically replacing string garbage</code>"Infinity"<code>with system voids</code>NaN'. The subsequent call to <code>replace</code> neutralizes the float's real infinities, and <code>dropna</code> completely cuts out the defective lines from the current chunk.</p>
+<hr />
+<h3 id="problem-4-premature-closure-and-fragmentation-of-sessions-by-the-fin-flag-fin-bug">Problem 4. Premature closure and fragmentation of sessions by the FIN flag (FIN bug)</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_3">1. The essence and nature of the problem</h4>
+<p>An architectural defect in the logic of tracking connection states in <code>CICFlowMeter'. As soon as the parser captures the first packet with the</code>FIN<code>flag set (a request to close a TCP connection), it immediately destroys the session structure in RAM and uploads its characteristics to the log. However, in the real network protocol, the</code>FIN<code>flag is always followed by confirmation packets from the receiving side (</code>FIN-ACK<code>,</code>ACK<code>). The capture utility sees these packets, but since the original session has already been deleted, it mistakenly generates new phantom sessions for them, which contain packets but have a payload length of zero (</code>Payload = 0`).</p>
+<h4 id="2-software-solution_3">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="n">bad_mask</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">chunk</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">'Tot Fwd Pkts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">'TotLen Fwd Pkts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">((</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Tot Fwd Pkts'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'TotLen Fwd Pkts'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="k">if</span> <span class="s1">'Tot Bwd Pkts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">'TotLen Bwd Bwd'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">((</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Tot Bwd Pkts'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'TotLen Bwd Pkts'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution_3">3. Technical analysis of the solution</h4>
+<p>The Boolean mask <code>bad_mask' detects physically impossible network events: situations where the packet counter in the forward or reverse direction has detected activity (</code>&gt; 0`), but the total length of the transmitted bytes of data is zero. Such artificial fragments of sessions are subject to total deletion.</p>
+<hr />
+<h3 id="problem-5-memory-sessions-are-hanging-due-to-ignoring-the-hard-reset-of-rst-rst-bug-and-physical-defects-of-the-sign-fields">Problem 5. Memory sessions are hanging due to ignoring the hard reset of RST (RST bug) and physical defects of the sign fields</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_4">1. The essence and nature of the problem</h4>
+<p>The parser completely ignores the TCP 'RST' (Reset) flag. If the connection is forcibly hard reset, the session is not destroyed, but remains in the utility's RAM buffer until the global timeout occurs. During this time, the session mistakenly absorbs packets from completely different network connections that accidentally match the port numbers. This leads to an avalanche-like overflow of signed variable types in Java (<code>integer overflow</code>), which causes the parameters of ports, durations (<code>Flow Duration') and packet intervals (</code>IAT') to fall into the negative range. Also, the header sizes are inflated to physically unrealistic scales (&gt;10 MB), and return packets are registered without direct connection initialization.</p>
+<h4 id="2-software-solution_4">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="k">if</span> <span class="s1">'Dst Port'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Dst Port'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'Flow Duration'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Flow Duration'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">iat_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'Flow IAT Min'</span><span class="p">,</span> <span class="s1">'Fwd IAT Min'</span><span class="p">,</span> <span class="s1">'Bwd IAT Min'</span><span class="p">]</span> <span class="k">if</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">iat_cols</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">'Init Fwd Win Byts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Init Fwd Win Byts'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'Init Bwd Win Byts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Init Bwd Win Byts'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">'Fwd Header Len'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Fwd Header Len'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Fwd Header Len'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10_000_000</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">'Bwd Header Len'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Bwd Header Len'</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Bwd Header Len'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">10_000_000</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="s1">'Tot Fwd Pkts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span> <span class="ow">and</span> <span class="s1">'Tot Bwd Pkts'</span> <span class="ow">in</span> <span class="n">chunk</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+            <span class="n">bad_mask</span> <span class="o">|=</span> <span class="p">((</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Tot Fwd Pkts'</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">chunk</span><span class="p">[</span><span class="s1">'Tot Bwd Pkts'</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="n">chunk_clean</span> <span class="o">=</span> <span class="n">chunk</span><span class="p">[</span><span class="o">~</span><span class="n">bad_mask</span><span class="p">]</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution_4">3. Technical analysis of the solution</h4>
+<p>A complex filter of physical anomalies is constructed using bitwise operator addition <code>|=</code>. All lines with signed overflows (values <code>&lt; 0</code>), abnormal network and transport layer headers exceeding 10 MB, as well as entries where return packets are flying at zero forward packets (<code>Tot Fwd Pkts == 0</code>) are deleted, indicating that the TCP session start handshake is skipped.</p>
+<hr />
+<h3 id="problem-6-conflict-of-timeouts-and-hardcore-session-limits-120c-vs-600c">Problem 6. Conflict of timeouts and hardcore session limits (120c vs 600c)</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_5">1. The essence and nature of the problem</h4>
+<p>The official documentation for the dataset states that the network session duration limit (`flowTimeout') is 600 seconds (10 minutes). In fact, when analyzing the CICFlowMeter source code on GitHub, a hard-coded constant of 120 seconds was found. Because of this discrepancy, long standard legitimate sessions (downloading files, holding DBMS connections) were forcibly hacked by the parser every 2 minutes. This generated a huge number of duplicate rows with absolutely identical statistical features, artificially shifting the weights of the machine learning model.</p>
+<h4 id="2-software-solution_5">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code>        <span class="k">if</span> <span class="n">is_first_chunk</span><span class="p">:</span>
+            <span class="n">chunk_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'w'</span><span class="p">)</span>
+            <span class="n">is_first_chunk</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">chunk_clean</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">'a'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution_5">3. Technical analysis of the solution</h4>
+<p>Streaming data chunks via <code>mode='a' prepares the cleaned tables for final deduplication. At the post-processing stage, calling the</code>drop_duplicates()' method It completely burns out excess duplicates of network sessions, eliminating artificial data volume bloating and restoring the natural balance of feature distribution.</p>
+<hr />
+<h3 id="problem-7-incorrect-accounting-of-ethernet-padding-6-bytes-out-of-nowhere">Problem 7. Incorrect accounting of Ethernet Padding (+6 bytes out of nowhere)</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_6">1. The essence and nature of the problem</h4>
+<p>The distortion is caused by incorrect collection of traffic volume metrics at the link layer (L2) instead of the transport layer (L4). According to the Ethernet standard, the minimum frame size should be at least 64 bytes. If the packet is too small (for example, an empty TCP ACK with payload length Payload = 0), the network interface automatically complements it with zeros to a minimum — this process is called Ethernet Padding (frame padding, usually 6 bytes). CICFlowMeter mistakenly read the entire length of the frame from the network adapter, adding hardware garbage to the length of the packets. This turned the minimum packet lengths (<code>Fwd Pkt Len Min</code>, <code>Bwd Pkt Len Min</code>) into constant values (equal to 6), reflecting the specifics of the booth's network cards, rather than network traffic.</p>
+<h4 id="2-software-solution_6">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code><span class="n">ALWAYS_REMOVE</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'Flow ID'</span><span class="p">,</span> <span class="s1">'Src IP'</span><span class="p">,</span> <span class="s1">'Src Port'</span><span class="p">,</span> <span class="s1">'Dst IP'</span><span class="p">,</span> <span class="s1">'Dst Port'</span><span class="p">,</span>
+    <span class="s1">'Protocol'</span><span class="p">,</span> <span class="s1">'CWE Flag Count'</span><span class="p">,</span>
+    <span class="s1">'Fwd Pkt Len Min'</span><span class="p">,</span> <span class="s1">'Bwd Pkt Len Min'</span><span class="p">,</span>
+    <span class="s1">'Pkt Size Avg'</span><span class="p">,</span>
+    <span class="s1">'Fwd Byts/b Avg'</span><span class="p">,</span> <span class="s1">'Fwd Pkts/b Avg'</span><span class="p">,</span> <span class="s1">'Fwd Blk Rate Avg'</span><span class="p">,</span>
+    <span class="s1">'Bwd Byts/b Avg'</span><span class="p">,</span> <span class="s1">'Bwd Pkts/b Avg'</span><span class="p">,</span> <span class="s1">'Bwd Blk Rate Avg'</span><span class="p">,</span>
+    <span class="s1">'Subflow Fwd Pkts'</span><span class="p">,</span> <span class="s1">'Subflow Fwd Byts'</span><span class="p">,</span>
+    <span class="s1">'Subflow Bwd Pkts'</span><span class="p">,</span> <span class="s1">'Subflow Bwd Byts'</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-of-the-solution_6">3. Technical analysis of the solution</h4>
+<p>Signs of the minimum packet lengths of forward and reverse directions are added to the <code>ALWAYS_REMOVE</code> list for forced exclusion from the matrices. The model completely eliminates the false sensitivity to hardware noise of network equipment.</p>
+<hr />
+<h3 id="problem-8-double-counting-of-the-first-packet-bug-average-packet-size-9-and-common-constant-signs">Problem 8. Double counting of the first packet (bug Average Packet Size = 9) and common constant signs</h3>
+<h4 id="1-the-essence-and-nature-of-the-problem_7">1. The essence and nature of the problem</h4>
+<p>A technical error has been made in the Java code of the CICFlowMeter network session initialization logic: the very first captured packet is added to the cumulative statistics object twice.</p>
+<p><strong>An example of a mathematical failure of the <code>Pkt Size Avg</code> metric when transmitting 2 packets of 6 bytes each:</strong></p>
+<ul>
+<li><strong>The 1st packet arrives (6 bytes):</strong> due to a bug, the software adds it twice. Accumulated sum of lengths = $6 + 6 = 12$. Packet counter in the statistics object = 2.</li>
+<li><strong>The 2nd packet arrives (6 bytes):</strong> the software processes it correctly. Accumulated sum of lengths = $12 + 6 = $18. The number of packets to calculate the average size is taken as the actual number of packets per session (i.e. 2).</li>
+</ul>
+<p>The result of the metric calculation is $\mathrm{Pkt\Size\Avg} = \frac{18}{2} = 9$. In this case, the neighboring feature of the average packet length (<code>Pkt Len Mean</code>) is calculated using another variable where this bug is missing, and returns the correct value of 6.</p>
+<p>Mutually exclusive mathematical features break the logic of building branches in tree classification models (for example, Random Forest and Gradient Boosting), as they create false linear dependencies. Additionally, the dataset files contain hidden constant features (the number of unique values of <code>nunique &lt;= 1</code>), which have no variance, do not carry useful information for class separation, and slow down the convergence of algorithms.</p>
+<h4 id="2-software-solution_7">2. Software solution</h4>
+<div class="codehilite"><pre><span></span><code><span class="c1"># At the post-processing stage of all 10 dataset files:</span>
+<span class="n">constant_per_file</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="k">for</span> <span class="n">FILE</span> <span class="ow">in</span> <span class="n">ALL_FILES</span><span class="p">:</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">FILE</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+    <span class="n">num_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">num_constant</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">num_cols</span> <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">txt_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">'string'</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+    <span class="k">except</span><span class="p">:</span>
+        <span class="n">txt_cols</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">'object'</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
+    <span class="n">txt_constant</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">txt_cols</span> <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">c</span> <span class="o">!=</span> <span class="s1">'Label'</span><span class="p">)</span>
+
+    <span class="n">all_constant</span> <span class="o">=</span> <span class="n">num_constant</span> <span class="o">|</span> <span class="n">txt_constant</span>
+    <span class="n">constant_per_file</span><span class="p">[</span><span class="n">FILE</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_constant</span>
+
+<span class="n">all_constant_sets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">constant_per_file</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+<span class="n">common_constant</span> <span class="o">=</span> <span class="n">all_constant_sets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">all_constant_sets</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">common_constant</span> <span class="o">=</span> <span class="n">common_constant</span> <span class="o">&amp;</span> <span class="n">s</span>
+
+<span class="c1"># Forming a single exclusion list</span>
+<span class="n">ALL_TO_REMOVE</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">ALWAYS_REMOVE</span><span class="p">)</span> <span class="o">|</span> <span class="n">common_constant</span>
+
+<span class="k">for</span> <span class="n">FILE</span> <span class="ow">in</span> <span class="n">ALL_FILES</span><span class="p">:</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">FOLDER</span><span class="p">,</span> <span class="n">FILE</span><span class="p">)</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">'Label'</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">df</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">'Label'</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">'Infilteration'</span><span class="p">,</span> <span class="s1">'Infiltration'</span><span class="p">)</span>
+
+    <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="n">ALL_TO_REMOVE</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">replace</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="3-technical-analysis-and-specification-of-the-deleted-features">3. Technical analysis and specification of the deleted features</h4>
+<p>During the execution of the filtering algorithm, 23 columns are excluded from the data structure. Below is a detailed analysis of each column being removed, grouped by the nature of the defect.</p>
+<h5 id="31-a-sign-with-a-software-calculation-defect">3.1. A sign with a software calculation defect</h5>
+<ul>
+<li><strong>Pkt Size Avg (or Packet Size Avg):</strong> Average package size. It is excluded due to a critical bug of double counting of the first packet in the session. Its preservation leads to duplication of the information of the "Pkt Len Mean` feature, but with a shift in the mathematical expectation, which distorts the assessment of the weights of the features.</li>
+</ul>
+<h5 id="32-common-constant-features-invariants-with-a-value-of-0-in-all-subsamples">3.2. Common constant features (invariants with a value of 0 in all subsamples)</h5>
+<p>A group of features related to the statistics of block transfers (Bulk) and specific flags that, within the framework of the CSE-CIC-IDS2018 traffic generation topology, take a strictly constant value of 0:</p>
+<ul>
+<li><strong>Fwd Byts/b Avg (Forward Bytes/Bulk Avg):</strong> The average number of bytes in a forward transmission block. It is equal to 0 for the entire dataset due to the lack of aggregation of block data by the parser.</li>
+<li><strong>Fwd Pkts/b Avg (Forward Packets/Bulk Avg):</strong> The average number of packets in the forward transmission unit. A constant zero value.</li>
+<li><strong>Fwd Blk Rate Avg (Forward Bulk Rate Avg):</strong> Average forward block transfer rate. It has no variance.</li>
+<li><strong>Bwd Byts/b Avg (Backward Bytes/Bulk Avg):</strong> The average number of bytes in the transmission block in the opposite direction. The constant is 0.</li>
+<li><strong>Bwd Pkts/b Avg (Backward Packets/Bulk Avg):</strong> The average number of packets in the transmission block in the opposite direction. The constant is 0.</li>
+<li><strong>Bwd Blk Rate Avg (Backward Bulk Rate Avg):</strong> The average speed of transmission of blocks in the opposite direction. The constant is 0.</li>
+<li><strong>Bwd PSH Flags:</strong> The number of packets with the PUSH flag set in the opposite direction. Due to the specifics of capturing traffic by the utility, it takes the value 0 in all sessions.</li>
+<li><strong>Fwd URG Flags:</strong> The number of packets with the URGENT flag set in the forward direction. It does not contain an informative distribution (strict constant 0).</li>
+<li><strong>Bwd URG Flags:</strong> The number of packets with the URGENT flag set in the opposite direction. It is equal to 0 in all records.</li>
+<li><strong>CWE Flag Count:</strong> The number of packets with the Congestion Window Reduced flag. It takes a zero value in the entire population.</li>
+</ul>
+<h5 id="33-service-metadata-and-network-identifiers-always_remove-list">3.3. Service metadata and network identifiers (ALWAYS_REMOVE list)</h5>
+<p>These features are removed in order to avoid false training (overfitting) of models for a specific architecture of the test bench and the time intervals of the experiment.:</p>
+<ul>
+<li><strong>Flow ID:</strong> A unique text identifier of the network stream. It contains unique string values for each session and is not subject to mathematical generalization.</li>
+<li><strong>Src IP (Source IP):</strong> The IP address of the packet sender. It is excluded that the model does not remember the specific IP addresses of attacking machines recorded on the stand, but is trained on the behavioral characteristics of traffic.</li>
+<li><strong>Dst IP (Destination IP):</strong> The IP address of the packet recipient. It is deleted to prevent the classifier from being tightly linked to the addresses of victim servers inside the AWS infrastructure.</li>
+<li><strong>Src Port (Source Port):</strong> The source port of the connection. It is most often generated dynamically by the operating system (dynamic ports from the range 49152-65535), therefore it is random noise for the model.</li>
+<li><strong>Timestamp:</strong> The time stamp of the stream fixation. This leads to data drift and false attribution of network attacks to a specific time of day or date of the experiment.</li>
+</ul>
+<p>The removal of these 23 columns reduces the feature space to 60 semantically independent informative variables, ensuring the identity of the data structure in all ten processed files.</p>
+<h3 id="cleaning-conveyor-results">Cleaning conveyor results</h3>
+<p>The log of successful end-to-end editing of files on the hard disk:</p>
+<p>```text
+STEP 1: Search for constant columns in all files
+  [final_clean_Friday-02-03- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_Friday-16-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_Friday-23-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_Thuesday-20-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_Thursday-01-03- 2018_TrafficForML_CICFlowMeter.csv] constant: 12
+  [final_clean_Thursday-15-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_Thursday-22-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_weedday-14-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12
+  [final_clean_weedday-21-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 13
+  [final_clean_weedday-28-02- 2018_TrafficForML_CICFlowMeter.csv] constants: 12</p>
+<p>============================================================
+STEP 2: Search for common constant columns (intersection)
+============================================================
+  Constant in all files (11):
+- Bwd Blk Rate Avg
+- Bwd Byts/b Avg
+- Bwd PSH Flags
+- Bwd Pkts/b Avg
+- Bwd URG Flags
+- CWE Flag Count
+    - Fwd Blk Rate Avg
+    - Fwd Byts/b Avg
+    - Fwd Pkts/b Avg
+    - Fwd URG Flags
+    - Protocol</p>
+<p>TOTAL columns to be deleted: 23</p>
+<p>STEP 4: Cleaning all files (modification of source files)</p>
+<p>File editing: final_clean_Friday-02-03- 2018_TrafficForML_CICFlowMeter.csv
+Size: (483066, 79) → (482068, 60)
+Duplicates removed: 998
+    Classes: {'Benign': 339885, 'Bot': 142183}</p>
+<p>File editing: final_clean_Friday-16-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (467891, 79) → (467847, 60)
+Duplicates removed: 44
+    Classes: {'Benign': 442299, 'DoS attacks-Hulk': 25548}</p>
+<p>File editing: final_clean_Friday-23-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (402367, 79) → (400943, 60)
+Duplicates removed: 1424
+    Classes: {'Benign': 400719, 'Brute Force -Web': 124, 'Brute Force -XSS': 73, 'SQL Injection': 27}</p>
+<p>File edit: final_clean_Thuesday-20-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (3169271, 81) → (3135576, 60)
+    Duplicates deleted: 33695
+    Classes: {'Benign': 2846287, 'DDoS attacks-LOIC-HTTP': 289289}</p>
+<p>File edit: final_clean_Thursday-01-03- 2018_TrafficForML_CICFlowMeter.csv
+Size: (104533, 79) → (104188, 60)
+Duplicates removed: 345
+    Classes: {'Benign': 80218, 'Infiltration': 23970}</p>
+<p>File edit: final_clean_Thursday-15-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (379583, 79) → (377087, 60)
+Duplicates removed: 2496
+    Classes: {'Benign': 341739, 'DoS attacks-GoldenEye': 27772, 'DoS attacks-Slowloris': 7576}</p>
+<p>File edit: final_clean_Thursday-22-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (400831, 79) → (399402, 60)
+Duplicates removed: 1429
+    Classes: {'Benign': 399200, 'Brute Force -Web': 142, 'Brute Force -XSS': 39, 'SQL Injection': 21}</p>
+<p>File edit: final_clean_Wednesday-14-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (359797, 79) → (358985, 60)
+Duplicates removed: 812
+    Classes: {'Benign': 265167, 'SSH-Bruteforce': 93818}</p>
+<p>File edit: final_clean_Wednesday-21-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (522380, 79) → (522379, 60)
+    Duplicates removed: 1
+    Classes: {'Benign': 358629, 'DDOS attack-HOIC': 163750}</p>
+<p>File edit: final_clean_Wednesday-28-02- 2018_TrafficForML_CICFlowMeter.csv
+Size: (190881, 79) → (190166, 60)
+Duplicates removed: 715
+    Classes: {'Benign': 169334, 'Infiltration': 20832}
+``</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../progress/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Ход работы">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Ход работы
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../graphs/" class="md-footer__link md-footer__link--next" aria-label="Next: Графики">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Графики
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.footer"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

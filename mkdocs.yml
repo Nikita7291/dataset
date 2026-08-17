@@ -32,6 +32,7 @@ nav:
   - Анализ датасета: analysis.md
   - Графики: graphs.md
   - Выводы: results.md
+  - Авторы: authors.md
 
 markdown_extensions:
   - tables
